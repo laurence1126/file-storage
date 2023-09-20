@@ -14,7 +14,7 @@
           "type": "python",
           "style": "plain",
           "foreground": "#E36464",
-          "template": "{{ if .Error }}{{ .Error }}{{ else }}{{ .Venv }}{{ end }} "
+          "template": "{{ if .Error }}{{ .Error }}{{ else }}{{ .Venv1 }}{{ end }} "
         },
         {
           "type": "session",
