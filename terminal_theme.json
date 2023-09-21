@@ -11,6 +11,9 @@
           "type": "python",
           "style": "plain",
           "foreground": "#40C4FF",
+          "properties": {
+            "display_mode": "always"
+          },
           "template": "{{ if .Error }}{{ .Error }}{{ else }}({{ .Venv }}@{{ .Full }}){{ end }} "
         },
         {
