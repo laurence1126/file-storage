@@ -1,0 +1,97 @@
+% Put this file under "/usr/local/texlive/texmf-local/tex/latex/local".
+% Use command "sudo texhash" after editting this file.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{resume}[Templete for resume]
+
+% Settings for no hyphenation
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+\newcommand{\@resumeSytle}{normal}
+\newcommand{\resumeStyle}[1]{
+  \renewcommand{\@resumeSytle}{#1}
+  \ifthenelse{\NOT\equal{\@resumeSytle}{fancy}}{\renewcommand{\module}[1]{\section{##1}}}{}
+}
+% input command for name
+\newcommand{\name}[1]{\author{#1}}
+% input command for phone
+\newcommand{\@phone}{}
+\newcommand{\phone}[1]{\renewcommand{\@phone}{#1}}
+% input command for Email
+\newcommand{\@email}{}
+\newcommand{\email}[1]{\renewcommand{\@email}{#1}}
+% input command for address
+\newcommand{\@address}{}
+\newcommand{\address}[1]{\renewcommand{\@address}{#1}}
+%---------------------------------------------------------------------------------------%
+% redefine maketitle
+\renewcommand\maketitle{
+  \vspace*{-8mm} % '*' for adjust vertical space at the start of a page
+  \begin{center}
+    {\LARGE\textbf{\@author}}\\[0.25em]
+    \ifthenelse{\NOT\equal{\@resumeSytle}{normal}}{\faIcon[regular]{phone-square-alt}}{Phone:}~\href{tel:\@phone}{\@phone}~|~
+    \ifthenelse{\NOT\equal{\@resumeSytle}{normal}}{\faIcon[regular]{envelope}}{Email:}~\href{mailto:\@email}{\@email}\\
+    \ifthenelse{\NOT\equal{\@resumeSytle}{normal}}{\faIcon[solid]{home}}{Address:}~\@address
+  \end{center}
+  \thispagestyle{fancy}
+  \vspace{-5mm}
+}
+% Icon for Phone: \faIcon[regular]{phone-square-alt}
+% Icon for Email: \faIcon[regular]{envelope}
+% Icon for Address: \faIcon[solid]{home}
+%---------------------------------------------------------------------------------------%
+% load packages
+\usepackage{ifthen}
+\usepackage{enumitem}
+%---------------------------------------------------------------------------------------%
+% hyperref settings
+\usepackage{hyperref}
+\hypersetup{hidelinks, colorlinks=true, urlcolor=black}
+%---------------------------------------------------------------------------------------%
+% geometry settings
+\usepackage{geometry}
+% A4 paper size: 210mm x 297mm
+\geometry{a4paper, total={190mm, 277mm}, left=10mm, top=10mm}
+%---------------------------------------------------------------------------------------%
+% fancyhdr settings
+\usepackage{fancyhdr}
+\fancyfootoffset{0pt}
+\pagestyle{fancy}
+\rhead{}\lhead{}
+\cfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+%---------------------------------------------------------------------------------------%
+% package for fonts
+\usepackage{fontspec}
+\usepackage[pro]{fontawesome5} % need to be installed first
+\newfontfamily\Chalkboard{Chalkboard SE} % need to be installed first
+\setmainfont{Helvetica Neue}
+%---------------------------------------------------------------------------------------%
+% tcolorbox settings
+\usepackage[most]{tcolorbox}
+\newtcbox{\module}{tcbox width=forced left, width=\columnwidth, enhanced, colback=black!10!white, borderline west={1mm}{0pt}{black}, boxrule=0mm, frame hidden, fontupper=\large\bf, colupper=black, left=0.5em, top=0.25em, bottom=0.25em, before  skip=0.5em, after skip=0em, sharp corners, breakable}
+%---------------------------------------------------------------------------------------%
+% title format settings
+\usepackage{titlesec}
+\titleformat{\section}[hang]{\large\bf}{}{0em}{}[\vspace{-0.8em}\rule{\columnwidth}{1pt}\vspace{-0.3em}]
+\titlespacing{\section}{0em}{0em}{0em}[0em]
+% parameters: {left space}{above space}{below space}[space remain on the right]
+\titleformat{\subsection}[hang]{}{}{0em}{}[]
+\titlespacing{\subsection}{0em}{0em}{0em}[0em]
+
+\newcommand{\institution}[2]{\subsection{\textbf{#1}\hfill #2}}
+\newcommand{\position}[2]{\subsection{\textit{#1}\hfill #2}}
+\newcommand{\awards}[2]{\subsection{#1\hfill #2}}
+\newcommand{\skills}[2]{\subsection{\textbf{#1:~}#2}}
+\newcommand{\note}[1]{\subsection{\textit{#1}}}
+%---------------------------------------------------------------------------------------%
+% additional settings
+\linespread{1.05} % set line spread
+\setlength{\parindent}{0em}
+\setlist[itemize, 1]{label=$\bullet$, nosep, leftmargin=1em}
+\setlist[itemize, 2]{label=$\circ$, nosep, leftmargin=1.5em}
+%---------------------------------------------------------------------------------------%
