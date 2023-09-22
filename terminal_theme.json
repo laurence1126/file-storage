@@ -8,13 +8,20 @@
       "type": "prompt",
       "segments": [
         {
+          "type": "status",
+          "foreground": "red",
+          "style": "plain",
+          "template": "\uea87 "
+        },
+        {
           "type": "python",
           "style": "plain",
           "foreground": "#40C4FF",
           "properties": {
-            "display_mode": "always"
+            "home_enabled": true,
+            "display_mode": "context"
           },
-          "template": "{{ if .Error }}{{ .Error }}{{ else }}({{ .Venv }}@{{ .Full }}){{ end }} "
+          "template": "{{ if .Error }}{{ .Error }}{{ else }}({{ if .Venv }}{{ .Venv }} {{ end }}\ue606 {{ .Full }}){{ end }} "
         },
         {
           "type": "session",
@@ -33,15 +40,14 @@
           "style": "plain",
           "foreground": "#40C4FF",
           "properties": {
-            "style": "folder"
+            "style": "agnoster_short",
+            "max_depth": 1,
+            "hide_root_location": true,
+            "folder_separator_icon": " ",
+            "home_icon": "\uf015 ",
+            "folder_icon": "\udb80\ude4b"
           },
           "template": " {{ .Path }}"
-        },
-        {
-          "foreground": "red",
-          "style": "plain",
-          "template": " \uea87",
-          "type": "status"
         }
       ]
     }
