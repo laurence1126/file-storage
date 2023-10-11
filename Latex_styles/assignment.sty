@@ -6,7 +6,7 @@
 
 \newcommand{\@sid}{}
 \newcommand{\sid}[1]{\renewcommand{\@sid}{#1}}
-%---------------------------------------------------------------------------------------%
+%--------------------------------------------------------------------------%
 % redefine maketitle
 \renewcommand\@maketitle{
   \pagecolor{Beige!30}
@@ -21,25 +21,31 @@
   \maketitle
   \thispagestyle{fancy}
 }
-%---------------------------------------------------------------------------------------%
+%--------------------------------------------------------------------------%
 % load packages
 \usepackage{amsmath}
 \usepackage{enumitem}
 \usepackage[svgnames, dvipsnames]{xcolor}
-\usepackage{graphicx}
 \usepackage{float}
 \usepackage[export]{adjustbox}
 \usepackage{ifthen}
-%---------------------------------------------------------------------------------------%
+%--------------------------------------------------------------------------%
 % Multi-column settings
 \usepackage{multicol}
 \usepackage{etoolbox}
 \BeforeBeginEnvironment{multicols}{\vspace{-1.5em}}
-%---------------------------------------------------------------------------------------%
+\BeforeBeginEnvironment{displaymath}{\vspace{-1.5em}}
+\AtBeginEnvironment{multicols}{\raggedcolumns}
+%--------------------------------------------------------------------------%
+% Graphicx settings
+\usepackage{graphicx}
+\BeforeBeginEnvironment{figure}{\vspace{-0.5em}}
+\AfterEndEnvironment{figure}{\vspace*{-1em}}
+%--------------------------------------------------------------------------%
 % geometry settings
 \usepackage{geometry}
 \geometry{a4paper, total={180mm,267mm}, left=15mm, top=15mm}
-%---------------------------------------------------------------------------------------%
+%--------------------------------------------------------------------------%
 % fancyhdr settings
 \usepackage{fancyhdr}
 \fancyfootoffset{0pt}
@@ -48,7 +54,7 @@
 \cfoot{-~\thepage~-}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
-%---------------------------------------------------------------------------------------%
+%--------------------------------------------------------------------------%
 % package for highlights
 \usepackage{soul}
 \def\SOUL@hlpreamble{ % eliminate the white space between highlighted lines
@@ -59,14 +65,14 @@
 \colorlet{lightyellow}{yellow!33} % define highlight color
 \sethlcolor{lightyellow} % set highlight color
 \newcommand{\highlight}[2][yellow]{\colorbox{#1!33}{$\mathstrut #2$}} % highlights for multilines formulas
-%---------------------------------------------------------------------------------------%
+%--------------------------------------------------------------------------%
 % package for fonts
 \usepackage[no-math]{fontspec}
 \setmainfont{Helvetica Neue}
 \usepackage{unicode-math}
 \setmathfont{Cambria Math}
 \setmathfont[version=bold, FakeBold=7]{Cambria Math}
-%---------------------------------------------------------------------------------------%
+%--------------------------------------------------------------------------%
 % title format settings
 \usepackage{titlesec}
 \titleformat{\section}[hang]{\large\bf}{\arabic{section}.}{1em}{}[]
@@ -75,7 +81,7 @@
 \titlespacing{\subsection}{0mm}{0em}{0em}[0em]
 \titleformat{\subsubsection}[runin]{\bf}{}{0em}{}[\hspace*{1em}]
 \titlespacing{\subsubsection}{0mm}{0em}{0em}[0em]
-%---------------------------------------------------------------------------------------%
+%--------------------------------------------------------------------------%
 % additional settings
 \linespread{1.2}
 \setlength{\parindent}{1em}
@@ -83,4 +89,4 @@
 \setlist[itemize, 2]{label=$\circ$, nosep, leftmargin=1.5em}
 \setlist[enumerate, 1]{nosep, leftmargin=1.5em}
 \setlist[enumerate, 2]{nosep, leftmargin=2em}
-%---------------------------------------------------------------------------------------%
+%--------------------------------------------------------------------------%

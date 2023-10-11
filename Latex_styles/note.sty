@@ -31,7 +31,6 @@
 \usepackage{amsmath}
 \usepackage{enumitem}
 \usepackage[svgnames, dvipsnames]{xcolor}
-\usepackage{graphicx}
 \usepackage{float}
 \usepackage[export]{adjustbox}
 \usepackage{tikz}
@@ -43,6 +42,12 @@
 \usepackage{etoolbox}
 \BeforeBeginEnvironment{multicols}{\vspace{-1.5em}}
 \BeforeBeginEnvironment{displaymath}{\vspace{-1.5em}}
+\AtBeginEnvironment{multicols}{\raggedcolumns}
+%---------------------------------------------------------------------------------------%
+% Graphicx settings
+\usepackage{graphicx}
+\BeforeBeginEnvironment{figure}{\vspace{-0.5em}}
+\AfterEndEnvironment{figure}{\vspace*{-1em}}
 %---------------------------------------------------------------------------------------%
 % % hyperref settings
 \usepackage{hyperref}
@@ -95,24 +100,24 @@
 \newcommand{\node}[2]{\tikzmarknode{#1}{#2}}
 \newkeycommand{\annotate}[xshift=0em, yshift=0em, node xshift=0em, node yshift=0em, arrow=|-, deg, color=blue!67, anchor][2]{
   \ifthenelse{\equal{\commandkey{anchor}}{}}{
-    \ifdim \commandkey{xshift} < 0em
+    \ifthenelse{\lengthtest{\commandkey{xshift}<0em}}{
       \def\notationPos{east}
-    \else
+    }{
       \def\notationPos{west}
-    \fi
+    }
   }{
     \def\notationPos{\commandkey{anchor}}
   }
 
-  \ifdim \commandkey{yshift} < 0em
+  \ifthenelse{\lengthtest{\commandkey{yshift}<0em}}{
     \def\nodePos{south}
-  \else 
-    \ifdim \commandkey{yshift} = 0em
-      \def\nodePos{center}
-    \else
+  }{
+    \ifthenelse{\lengthtest{\commandkey{yshift}>0em}}{
       \def\nodePos{north}
-    \fi
-  \fi
+    }{
+      \def\nodePos{center}
+    }
+  }
 
   \ifthenelse{\NOT\equal{\commandkey{deg}}{}}{
     \ifthenelse{\lengthtest{\commandkey{xshift}>0em} \AND \lengthtest{\commandkey{yshift}>0em}}{\def\arrow{to [bend left=\commandkey{deg}]}}{}
