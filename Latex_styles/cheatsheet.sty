@@ -41,6 +41,10 @@
 \BeforeBeginEnvironment{displaymath}{\vspace{-1.5em}}
 \AtBeginEnvironment{multicols}{\raggedcolumns}
 %---------------------------------------------------------------------------------------%
+% Table (booktabs) settings
+\usepackage{booktabs}
+\AtBeginEnvironment{table}{\setlength{\aboverulesep}{0em}\setlength{\belowrulesep}{0em}\def\arraystretch{1.2}}
+%---------------------------------------------------------------------------------------%
 % Graphicx settings
 \usepackage{graphicx}
 \BeforeBeginEnvironment{figure}{\vspace{-0.5em}}
