@@ -7,19 +7,19 @@
 %---------------------------------------------------------------------------------------%
 % redefine maketitle
 \renewcommand{\maketitle}{
-  \begin{center}
-    % \pagecolor{Beige!30}
-    {\huge\textbf{\Chalkboard\@title}\\}
-  \end{center}
+	\begin{center}
+		% \pagecolor{Beige!30}
+		{\huge\textbf{\Chalkboard\@title}\\}
+  	\end{center}
 }
 \renewcommand{\title}[1]{
-  \renewcommand{\@title}{#1}
-  \maketitle
-  \thispagestyle{fancy}
-  % Table of contents settings
-  \renewcommand{\contentsname}{Summary\vspace{-1em}}
-  \newcommand{\hrefMath}[1]{\texorpdfstring{##1}{}}
-  \tableofcontents
+ 	\renewcommand{\@title}{#1}
+  	\maketitle
+  	\thispagestyle{fancy}
+  	% Table of contents settings
+  	\renewcommand{\contentsname}{Summary\vspace{-1em}}
+  	\newcommand{\hrefMath}[1]{\texorpdfstring{##1}{}}
+  	\tableofcontents
 }
 %---------------------------------------------------------------------------------------%
 % load packages
@@ -41,15 +41,18 @@
 \usepackage{multicol}
 \usepackage{etoolbox}
 \BeforeBeginEnvironment{multicols}{\vspace{-1.5em}}
-\BeforeBeginEnvironment{displaymath}{\vspace{-1.5em}}
+\BeforeBeginEnvironment{equation}{\vspace{-1em}}
+\BeforeBeginEnvironment{equation*}{\vspace{-1em}}
 \AtBeginEnvironment{multicols}{\raggedcolumns}
 %---------------------------------------------------------------------------------------%
 % Table (booktabs) settings
 \usepackage{booktabs}
-\AtBeginEnvironment{table}{\setlength{\aboverulesep}{0em}\setlength{\belowrulesep}{0em}\def\arraystretch{1.2}}
+\AtBeginEnvironment{table}{\setlength{\aboverulesep}{0em}\setlength{\belowrulesep}{0em}\def\arraystretch{1.2}\vspace{-1em}}
+\AtEndEnvironment{table}{\vspace{-1em}}
 %---------------------------------------------------------------------------------------%
 % Graphicx settings
 \usepackage{graphicx}
+\usepackage{wrapfig}
 \BeforeBeginEnvironment{figure}{\vspace{-0.5em}}
 \AfterEndEnvironment{figure}{\vspace*{-1em}}
 %---------------------------------------------------------------------------------------%
@@ -103,44 +106,46 @@
 % easy-annotate settings
 \newcommand{\node}[2]{\tikzmarknode{#1}{#2}}
 \newkeycommand{\annotate}[xshift=0em, yshift=0em, node xshift=0em, node yshift=0em, arrow=|-, deg, color=blue!67, anchor][2]{
-  \ifthenelse{\equal{\commandkey{anchor}}{}}{
-    \ifthenelse{\lengthtest{\commandkey{xshift}<0em}}{
-      \def\notationPos{east}
-    }{
-      \def\notationPos{west}
-    }
-  }{
-    \def\notationPos{\commandkey{anchor}}
-  }
+  	\ifthenelse{\equal{\commandkey{anchor}}{}}{
+    	\ifthenelse{\lengthtest{\commandkey{xshift}<0em}}{
+      		\def\notationPos{east}
+    	}{
+      		\def\notationPos{west}
+    	}
+  	}{
+    	\def\notationPos{\commandkey{anchor}}
+  	}
 
-  \ifthenelse{\lengthtest{\commandkey{yshift}<0em}}{
-    \def\nodePos{south}
-  }{
-    \ifthenelse{\lengthtest{\commandkey{yshift}>0em}}{
-      \def\nodePos{north}
-    }{
-      \def\nodePos{center}
-    }
-  }
+  	\ifthenelse{\lengthtest{\commandkey{yshift}<0em}}{
+    	\def\nodePos{south}
+  	}{
+    	\ifthenelse{\lengthtest{\commandkey{yshift}>0em}}{
+      		\def\nodePos{north}
+    	}{
+      		\def\nodePos{center}
+    	}
+  	}
 
-  \ifthenelse{\NOT\equal{\commandkey{deg}}{}}{
-    \ifthenelse{\lengthtest{\commandkey{xshift}>0em} \AND \lengthtest{\commandkey{yshift}>0em}}{\def\arrow{to [bend left=\commandkey{deg}]}}{}
-    \ifthenelse{\lengthtest{\commandkey{xshift}<0em} \AND \lengthtest{\commandkey{yshift}<0em}}{\def\arrow{to [bend left=\commandkey{deg}]}}{}
-    \ifthenelse{\lengthtest{\commandkey{xshift}>0em} \AND \lengthtest{\commandkey{yshift}<0em}}{\def\arrow{to [bend right=\commandkey{deg}]}}{}
-    \ifthenelse{\lengthtest{\commandkey{xshift}<0em} \AND \lengthtest{\commandkey{yshift}>0em}}{\def\arrow{to [bend right=\commandkey{deg}]}}{}
-    \ifthenelse{\lengthtest{\commandkey{xshift}=0em} \OR \lengthtest{\commandkey{yshift}=0em}}{\def\arrow{--}}{}
-  }{\def\arrow{\commandkey{arrow}}}
+  	\ifthenelse{\NOT\equal{\commandkey{deg}}{}}{
+    	\ifthenelse{\lengthtest{\commandkey{xshift}>0em} \AND \lengthtest{\commandkey{yshift}>0em}}{\def\arrow{to [bend left=\commandkey{deg}]}}{}
+    	\ifthenelse{\lengthtest{\commandkey{xshift}<0em} \AND \lengthtest{\commandkey{yshift}<0em}}{\def\arrow{to [bend left=\commandkey{deg}]}}{}
+    	\ifthenelse{\lengthtest{\commandkey{xshift}>0em} \AND \lengthtest{\commandkey{yshift}<0em}}{\def\arrow{to [bend right=\commandkey{deg}]}}{}
+    	\ifthenelse{\lengthtest{\commandkey{xshift}<0em} \AND \lengthtest{\commandkey{yshift}>0em}}{\def\arrow{to [bend right=\commandkey{deg}]}}{}
+    	\ifthenelse{\lengthtest{\commandkey{xshift}=0em} \OR \lengthtest{\commandkey{yshift}=0em}}{\def\arrow{--}}{}
+  	}{
+		\def\arrow{\commandkey{arrow}}
+	}
 
-  \ifthenelse{\NOT\equal{\commandkey{arrow}}{|-}}{
-    \ifthenelse{\NOT\equal{\commandkey{arrow}}{--}}{\def\arrow{to [\commandkey{arrow}=\commandkey{deg}]}}{\def\arrow{\commandkey{arrow}}}
-  }{}
-  % arrow option: |-(default), --, bend left, bend right
-  % if arrow=bend left/right, parameter `deg` must be filled in
+  	\ifthenelse{\NOT\equal{\commandkey{arrow}}{|-}}{
+    	\ifthenelse{\NOT\equal{\commandkey{arrow}}{--}}{\def\arrow{to [\commandkey{arrow}=\commandkey{deg}]}}{\def\arrow{\commandkey{arrow}}}
+  	}{}
+  	% arrow option: |-(default), --, bend left, bend right
+  	% if arrow=bend left/right, parameter `deg` must be filled in
 
-  \begin{tikzpicture}[overlay,remember picture,>=stealth,nodes={align=center,inner ysep=0pt},<-]
-    \path (#1.\nodePos) ++ (\commandkey{xshift},\commandkey{yshift}) node[anchor=\notationPos,color=\commandkey{color}] (textBox){#2};
-    \draw [color=\commandkey{color}](#1.\nodePos) ++ (\commandkey{node xshift},\commandkey{node yshift}) \arrow (textBox.\notationPos);
-  \end{tikzpicture}
+  	\begin{tikzpicture}[overlay,remember picture,>=stealth,nodes={align=center,inner ysep=0pt},<-]
+    	\path (#1.\nodePos) ++ (\commandkey{xshift},\commandkey{yshift}) node[anchor=\notationPos,color=\commandkey{color}] (textBox){#2};
+    	\draw [color=\commandkey{color}](#1.\nodePos) ++ (\commandkey{node xshift},\commandkey{node yshift}) \arrow (textBox.\notationPos);
+  	\end{tikzpicture}
 }
 %---------------------------------------------------------------------------------------%
 % title format settings
@@ -152,6 +157,38 @@
 \titlespacing{\subsection}{0em}{0.5em}{0.5em}[0em]
 \titleformat{\subsubsection}[runin]{\normalsize\bf\Chalkboard}{\roman{subsubsection}.}{1em}{}[]
 \titlespacing{\subsubsection}{0em}{0em}{0em}[0em]
+%---------------------------------------------------------------------------------------%
+% code blocks settings
+\usepackage{minted}
+\usemintedstyle{emacs}
+\usepackage[most]{tcolorbox}
+\definecolor{codeBG}{HTML}{f7f7f7}
+\tcbset{boxsep=0em, boxrule=0mm, left=1em, right=1em, top=0.5em, bottom=0.5em, colback=codeBG, breakable, pad at break=0.5em}
+
+\NewTotalTCBox{\python}{v}{nobeforeafter, tcbox raise base, valign=center, top=0.2em, bottom=0.2em, left=1mm, right=1mm, height=1.4em, colback=codeBG, colframe=gray, boxrule=1pt}{\mintinline{python}{#1}}
+\newkeycommand{\readPython}[first, last][1]{
+	\ifthenelse{\equal{\commandkey{first}}{} \AND \equal{\commandkey{last}}{}}{
+		\begin{tcolorbox}
+			\inputminted[breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt, python3]{python}{#1}
+		\end{tcolorbox}
+	}{
+		\begin{tcolorbox}
+			\inputminted[firstline=\commandkey{first}, lastline=\commandkey{last}, breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt, python3]{python}{#1}
+		\end{tcolorbox}
+	}
+}
+\newkeycommand{\readTxt}[first, last][1]{
+	\ifthenelse{\equal{\commandkey{first}}{} \AND \equal{\commandkey{last}}{}}{
+		\begin{tcolorbox}
+			\inputminted[breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt]{text}{#1}
+		\end{tcolorbox}
+	}{
+		\begin{tcolorbox}
+			\inputminted[firstline=\commandkey{first}, lastline=\commandkey{last}, breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt]{text}{#1}
+		\end{tcolorbox}
+	}
+}
+\AtEndEnvironment{document}{\immediate\write18{rm -r _minted*}}
 %---------------------------------------------------------------------------------------%
 % Environment for Theorems
 \newenvironment{theorems}{\titleformat{\subsection}[hang]{\large\bf\Chalkboard}{\color{blue}Theorem \arabic{subsection}}{1em}{}[]}{\titleformat{\subsection}[hang]{\large\bf\Chalkboard}{\arabic{section}.\arabic{subsection}.}{1em}{}[]}

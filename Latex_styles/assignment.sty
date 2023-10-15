@@ -9,17 +9,17 @@
 %--------------------------------------------------------------------------%
 % redefine maketitle
 \renewcommand\@maketitle{
-  \pagecolor{Beige!30}
-  \begin{center}
-    {\Large\textbf{\@title}}\\[0.5em]
-    \textbf{Name: }\@author \hspace{2em} \textbf{SID: }\@sid\\
-    \@date
-  \end{center}
+	% \pagecolor{Beige!30}
+	\begin{center}
+		{\Large\textbf{\@title}}\\[0.5em]
+		\textbf{Name: }\@author \hspace{2em} \textbf{SID: }\@sid\\
+		\@date
+	\end{center}
 }
 \renewcommand{\title}[1]{
-  \renewcommand{\@title}{#1}
-  \maketitle
-  \thispagestyle{fancy}
+	\renewcommand{\@title}{#1}
+	\maketitle
+	\thispagestyle{fancy}
 }
 %--------------------------------------------------------------------------%
 % load packages
@@ -29,20 +29,24 @@
 \usepackage{float}
 \usepackage[export]{adjustbox}
 \usepackage{ifthen}
+\usepackage{keycommand}
 %--------------------------------------------------------------------------%
 % Multi-column settings
 \usepackage{multicol}
 \usepackage{etoolbox}
 \BeforeBeginEnvironment{multicols}{\vspace{-1.5em}}
-\BeforeBeginEnvironment{displaymath}{\vspace{-1.5em}}
+\BeforeBeginEnvironment{equation}{\vspace{-1em}}
+\BeforeBeginEnvironment{equation*}{\vspace{-1em}}
 \AtBeginEnvironment{multicols}{\raggedcolumns}
 %--------------------------------------------------------------------------%
 % Table (booktabs) settings
 \usepackage{booktabs}
-\AtBeginEnvironment{table}{\setlength{\aboverulesep}{0em}\setlength{\belowrulesep}{0em}\def\arraystretch{1.2}}
+\AtBeginEnvironment{table}{\setlength{\aboverulesep}{0em}\setlength{\belowrulesep}{0em}\def\arraystretch{1.2}\vspace{-1em}}
+\AtEndEnvironment{table}{\vspace{-1em}}
 %--------------------------------------------------------------------------%
 % Graphicx settings
 \usepackage{graphicx}
+\usepackage{wrapfig}
 \BeforeBeginEnvironment{figure}{\vspace{-0.5em}}
 \AfterEndEnvironment{figure}{\vspace*{-1em}}
 %--------------------------------------------------------------------------%
@@ -85,6 +89,38 @@
 \titlespacing{\subsection}{0mm}{0em}{0em}[0em]
 \titleformat{\subsubsection}[runin]{\bf}{}{0em}{}[\hspace*{1em}]
 \titlespacing{\subsubsection}{0mm}{0em}{0em}[0em]
+%--------------------------------------------------------------------------%
+% code blocks settings
+\usepackage{minted}
+\usemintedstyle{emacs}
+\usepackage[most]{tcolorbox}
+\definecolor{codeBG}{HTML}{f7f7f7}
+\tcbset{boxsep=0em, boxrule=0mm, left=1em, right=1em, top=0.5em, bottom=0.5em, colback=codeBG, breakable, pad at break=0.5em}
+
+\NewTotalTCBox{\python}{v}{nobeforeafter, tcbox raise base, valign=center, top=0.2em, bottom=0.2em, left=1mm, right=1mm, height=1.4em, colback=codeBG, colframe=gray, boxrule=1pt}{\mintinline{python}{#1}}
+\newkeycommand{\readPython}[first, last][1]{
+	\ifthenelse{\equal{\commandkey{first}}{} \AND \equal{\commandkey{last}}{}}{
+		\begin{tcolorbox}
+			\inputminted[breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt, python3]{python}{#1}
+		\end{tcolorbox}
+	}{
+		\begin{tcolorbox}
+			\inputminted[firstline=\commandkey{first}, lastline=\commandkey{last}, breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt, python3]{python}{#1}
+		\end{tcolorbox}
+	}
+}
+\newkeycommand{\readTxt}[first, last][1]{
+	\ifthenelse{\equal{\commandkey{first}}{} \AND \equal{\commandkey{last}}{}}{
+		\begin{tcolorbox}
+			\inputminted[breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt]{text}{#1}
+		\end{tcolorbox}
+	}{
+		\begin{tcolorbox}
+			\inputminted[firstline=\commandkey{first}, lastline=\commandkey{last}, breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt]{text}{#1}
+		\end{tcolorbox}
+	}
+}
+\AtEndEnvironment{document}{\immediate\write18{rm -r _minted*}}
 %--------------------------------------------------------------------------%
 % additional settings
 \linespread{1.2}
