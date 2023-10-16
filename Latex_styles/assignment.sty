@@ -30,10 +30,11 @@
 \usepackage[export]{adjustbox}
 \usepackage{ifthen}
 \usepackage{keycommand}
+\usepackage{etoolbox}
+\usepackage{xparse}
 %--------------------------------------------------------------------------%
 % Multi-column settings
 \usepackage{multicol}
-\usepackage{etoolbox}
 \BeforeBeginEnvironment{multicols}{\vspace{-1.5em}}
 \BeforeBeginEnvironment{equation}{\vspace{-1em}}
 \BeforeBeginEnvironment{equation*}{\vspace{-1em}}
@@ -95,30 +96,41 @@
 \usemintedstyle{emacs}
 \usepackage[most]{tcolorbox}
 \definecolor{codeBG}{HTML}{f7f7f7}
-\tcbset{boxsep=0em, boxrule=0mm, left=1em, right=1em, top=0.5em, bottom=0.5em, colback=codeBG, breakable, pad at break=0.5em}
+\tcbset{enhanced, boxsep=0em, boxrule=1pt, colframe=gray!50, left=3mm, right=3mm, top=0.5em, bottom=0.5em, colback=codeBG, breakable, pad at break=0.5em}
 
-\NewTotalTCBox{\python}{v}{nobeforeafter, tcbox raise base, valign=center, top=0.2em, bottom=0.2em, left=1mm, right=1mm, height=1.4em, colback=codeBG, colframe=gray, boxrule=1pt}{\mintinline{python}{#1}}
-\newkeycommand{\readPython}[first, last][1]{
-	\ifthenelse{\equal{\commandkey{first}}{} \AND \equal{\commandkey{last}}{}}{
-		\begin{tcolorbox}
-			\inputminted[breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt, python3]{python}{#1}
-		\end{tcolorbox}
-	}{
-		\begin{tcolorbox}
-			\inputminted[firstline=\commandkey{first}, lastline=\commandkey{last}, breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt, python3]{python}{#1}
-		\end{tcolorbox}
-	}
+\NewTotalTCBox{\code}{ O{python} m }{enhanced, nobeforeafter, tcbox raise base, valign=center, left=1mm, right=1mm, top=0.2em, bottom=0.2em, height=1.4em, colback=codeBG, colframe=gray!50, boxrule=1pt}
+	{\mintinline{#1}{#2}}
+\NewDocumentCommand \readPython { > {\SplitArgument{1}{-}} o m O{}}{
+    \IfNoValueTF{#1}{
+        \begin{tcolorbox}
+        \inputminted[highlightlines={#3}, mathescape, breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt, python3]{python}{#2}
+        \end{tcolorbox}
+    }{
+        \providecommand{\lineInputParser}[2]{
+            \def\first{##1}
+            \def\last{##2}
+        }
+        \lineInputParser #1
+        \begin{tcolorbox}
+        \inputminted[firstline=\first, lastline=\last, highlightlines={#3}, mathescape, breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt, python3]{python}{#2}
+        \end{tcolorbox}
+    } 
 }
-\newkeycommand{\readTxt}[first, last][1]{
-	\ifthenelse{\equal{\commandkey{first}}{} \AND \equal{\commandkey{last}}{}}{
-		\begin{tcolorbox}
-			\inputminted[breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt]{text}{#1}
-		\end{tcolorbox}
-	}{
-		\begin{tcolorbox}
-			\inputminted[firstline=\commandkey{first}, lastline=\commandkey{last}, breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt]{text}{#1}
-		\end{tcolorbox}
-	}
+\NewDocumentCommand \readTxt { > {\SplitArgument{1}{-}} o m O{}}{
+    \IfNoValueTF{#1}{
+        \begin{tcolorbox}
+        \inputminted[highlightlines={#3}, mathescape, breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt]{text}{#2}
+        \end{tcolorbox}
+    }{
+        \providecommand{\lineInputParser}[2]{
+            \def\first{##1}
+            \def\last{##2}
+        }
+        \lineInputParser #1
+        \begin{tcolorbox}
+        \inputminted[firstline=\first, lastline=\last, highlightlines={#3}, mathescape, breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt]{text}{#2}
+        \end{tcolorbox}
+    } 
 }
 \AtEndEnvironment{document}{\immediate\write18{rm -r _minted*}}
 %--------------------------------------------------------------------------%
