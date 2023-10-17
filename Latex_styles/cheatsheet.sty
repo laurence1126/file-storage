@@ -84,9 +84,10 @@
 %---------------------------------------------------------------------------------------%
 % package for fonts
 \usepackage[no-math]{fontspec}
-\usepackage[pro]{fontawesome5} % need to be installed first
+\setmainfont{Helvetica Neue} % need to be installed first
+\setmonofont{JetBrainsMono Nerd Font} % need to be installed first
+\newfontfamily\JBNF{JetBrainsMono Nerd Font}[Scale=1.5] % need to be installed first
 \newfontfamily\Chalkboard{Chalkboard SE} % need to be installed first
-\setmainfont{Helvetica Neue}
 \usepackage{unicode-math}
 \setmathfont{Cambria Math} % need to be installed first
 \setmathfont[version=bold, FakeBold=7]{Cambria Math}
@@ -151,44 +152,48 @@
 %---------------------------------------------------------------------------------------%
 % code blocks settings
 \usepackage{minted}
+\setminted{mathescape, escapeinside=||, breaklines, breaksymbolleft=\small\ensuremath{\hookrightarrow}, breakindentnchars=0, breaksymbolsepnchars=1, python3}
 \usemintedstyle{emacs}
 \usepackage[most]{tcolorbox}
+\tcbset{before skip=0.5\baselineskip+2pt, after skip=0.5\baselineskip+2pt}
 \definecolor{codeBG}{HTML}{f7f7f7}
-\tcbset{enhanced, boxsep=0em, boxrule=1pt, colframe=gray!50, left=3mm, right=3mm, top=0.5em, bottom=0.5em, colback=codeBG, breakable, pad at break=0.5em}
 
 \NewTotalTCBox{\code}{ O{python} m }{enhanced, nobeforeafter, tcbox raise base, valign=center, left=1mm, right=1mm, top=0.2em, bottom=0.2em, height=1.4em, colback=codeBG, colframe=gray!50, boxrule=1pt}
 	{\mintinline{#1}{#2}}
-\NewDocumentCommand \readPython { > {\SplitArgument{1}{-}} o m O{}}{
-    \IfNoValueTF{#1}{
-        \begin{tcolorbox}
-        \inputminted[highlightlines={#3}, mathescape, breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt, python3]{python}{#2}
-        \end{tcolorbox}
+
+\NewDocumentCommand \processRead { m m m m m m }{
+    \IfBooleanT{#1}{
+        \tcbset{before skip=-\tcboxedtitleheight/2, title=#6}
+    }
+    \IfNoValueTF{#2}{
+        \def\first{1}
+        \def\last{default}
     }{
         \providecommand{\lineInputParser}[2]{
             \def\first{##1}
             \def\last{##2}
         }
-        \lineInputParser #1
-        \begin{tcolorbox}
-        \inputminted[firstline=\first, lastline=\last, highlightlines={#3}, mathescape, breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt, python3]{python}{#2}
-        \end{tcolorbox}
-    } 
+        \lineInputParser #2
+    }
+
+    \begin{tcolorbox}[
+        enhanced, boxsep=0em, boxrule=1pt, colframe=gray!50, left=3mm, right=3mm, top=0.5em, bottom=0.5em,
+        colback=codeBG, breakable, pad at break=0.5em, attach boxed title to top right={yshift=-0.4mm, xshift=-10mm},
+        boxed title style={skin=enhancedfirst jigsaw, valign=center, height=2.1em, colback=gray!25}, center title,
+        hbox boxed title, coltitle=gray
+    ]
+    \inputminted[firstline=\first, lastline=\last, highlightlines={#4}]{#5}{#3}
+    \end{tcolorbox}
+
+    \IfBooleanT{#1}{
+        \tcbset{before skip=0.5\baselineskip+2pt, title={}}
+    }
 }
-\NewDocumentCommand \readTxt { > {\SplitArgument{1}{-}} o m O{}}{
-    \IfNoValueTF{#1}{
-        \begin{tcolorbox}
-        \inputminted[highlightlines={#3}, mathescape, breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt]{text}{#2}
-        \end{tcolorbox}
-    }{
-        \providecommand{\lineInputParser}[2]{
-            \def\first{##1}
-            \def\last{##2}
-        }
-        \lineInputParser #1
-        \begin{tcolorbox}
-        \inputminted[firstline=\first, lastline=\last, highlightlines={#3}, mathescape, breaklines, breakindentnchars=0, breaksymbolsepnchars=1, fontfamily=tt]{text}{#2}
-        \end{tcolorbox}
-    } 
+\NewDocumentCommand \readPython { s > {\SplitArgument{1}{-}} o m O{}}{
+    \processRead{#1}{#2}{#3}{#4}{python}{{\JBNF\symbol{"F0320}}\hspace{1em}\raisebox{0.25em}{Python}}
+}
+\NewDocumentCommand \readTxt { s > {\SplitArgument{1}{-}} o m O{} o }{
+    \processRead{#1}{#2}{#3}{#4}{text}{{\JBNF\symbol{"F489}}\hspace{1em}\raisebox{0.25em}{Console}}
 }
 \AtEndEnvironment{document}{\immediate\write18{rm -r _minted*}}
 %---------------------------------------------------------------------------------------%
