@@ -36,8 +36,6 @@
 % Multi-column settings
 \usepackage{multicol}
 \BeforeBeginEnvironment{multicols}{\vspace{-1.5em}}
-\BeforeBeginEnvironment{equation}{\vspace{-1em}}
-\BeforeBeginEnvironment{equation*}{\vspace{-1em}}
 \AtBeginEnvironment{multicols}{\raggedcolumns}
 %--------------------------------------------------------------------------%
 % Table (booktabs) settings
@@ -88,11 +86,11 @@
 % title format settings
 \usepackage{titlesec}
 \titleformat{\section}[hang]{\large\bf}{\arabic{section}.}{1em}{}[]
-\titlespacing{\section}{0mm}{0em}{0em}[0em]
-\titleformat{\subsection}[runin]{\bf}{}{0em}{}[\hspace*{1em}]
-\titlespacing{\subsection}{0mm}{0em}{0em}[0em]
-\titleformat{\subsubsection}[runin]{\bf}{}{0em}{}[\hspace*{1em}]
-\titlespacing{\subsubsection}{0mm}{0em}{0em}[0em]
+\titlespacing{\section}{0em}{0em}{0em}[0em]
+\titleformat{\subsection}[runin]{\normalsize\bf}{}{0em}{}[\hspace*{1em}]
+\titlespacing{\subsection}{0em}{0em}{0em}[0em]
+\titleformat{\subsubsection}[runin]{\normalsize}{}{0em}{}[\hspace*{1em}]
+\titlespacing{\subsubsection}{0em}{0em}{0em}[0em]
 %--------------------------------------------------------------------------%
 % code blocks settings
 \usepackage{minted}

@@ -2,21 +2,24 @@
 % Use command "sudo texhash" after editting this file.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{cheatsheet}[Templete for cheatsheet]
+\ProvidesPackage{note}[Templete for notes]
 
 %---------------------------------------------------------------------------------------%
 % redefine maketitle
 \renewcommand{\maketitle}{
-  	\begin{center}
-    	% \pagecolor{Beige!30}
-    	{\Large\textbf{\Chalkboard\@title}\\}
+	\begin{center}
+		% \pagecolor{Beige!30}
+		{\huge\textbf{\Chalkboard\@title}\\}
   	\end{center}
-  	\vspace{0.5em}
 }
 \renewcommand{\title}[1]{
-  	\renewcommand{\@title}{#1}
+ 	\renewcommand{\@title}{#1}
   	\maketitle
   	\thispagestyle{fancy}
+  	% Table of contents settings
+  	\renewcommand{\contentsname}{Summary\vspace{-1em}}
+  	\newcommand{\hrefMath}[1]{\texorpdfstring{##1}{}}
+  	\tableofcontents
 }
 %---------------------------------------------------------------------------------------%
 % load packages
@@ -34,12 +37,11 @@
 \usetikzlibrary{tikzmark}
 \usepackage{keycommand}
 \usepackage{etoolbox}
+\usepackage{xparse}
 %---------------------------------------------------------------------------------------%
 % Multi-column settings
 \usepackage{multicol}
 \BeforeBeginEnvironment{multicols}{\vspace{-1.5em}}
-\BeforeBeginEnvironment{equation}{\vspace{-1em}}
-\BeforeBeginEnvironment{equation*}{\vspace{-1em}}
 \AtBeginEnvironment{multicols}{\raggedcolumns}
 %---------------------------------------------------------------------------------------%
 % Table (booktabs) settings
@@ -55,7 +57,7 @@
 %---------------------------------------------------------------------------------------%
 % hyperref settings
 \usepackage{hyperref}
-\hypersetup{hidelinks, colorlinks=true, urlcolor=black}
+\hypersetup{hidelinks, colorlinks=true, urlcolor=black, linkcolor=black}
 %---------------------------------------------------------------------------------------%
 % geometry settings
 \usepackage{geometry}
@@ -94,16 +96,12 @@
 %---------------------------------------------------------------------------------------%
 % tcolorbox settings
 \usepackage[most]{tcolorbox}
-%---------------------------------------------------------------------------------------%
-% title format settings
-\usepackage{titlesec}
-\titleformat{\section}[hang]{\large\bf\Chalkboard}{\arabic{section}.}{1em}{}[]
-\titlespacing{\section}{0em}{0em}{0em}[0em]
-% parameters: {left space}{above space}{below space}[space remain on the right]
-\titleformat{\subsection}[hang]{\large\bf\Chalkboard}{\arabic{section}.\arabic{subsection}.}{1em}{}[\hspace*{1em}]
-\titlespacing{\subsection}{0em}{0em}{0em}[0em]
-\titleformat{\subsubsection}[runin]{\normalsize\bf\Chalkboard}{\roman{subsubsection}.}{1em}{}[\hspace*{1em}]
-\titlespacing{\subsubsection}{0em}{0em}{0em}[0em]
+\newtcolorbox{MnV}{colback=SeaGreen!10!CornflowerBlue!10, colframe=RoyalPurple!50!Aquamarine!100!, fonttitle=\bfseries, sidebyside, halign=flush center, halign lower=flush center, title={\Chalkboard Mean and Variance}}
+\newtcolorbox{red}[1]{colback=red!5!white, colframe=red!75!black, fonttitle=\bfseries, title={\Chalkboard #1}, before upper=\setlength{\parindent}{4.5mm}}
+\newenvironment{remarks}{\begin{itemize}}{\end{itemize}}
+\tcolorboxenvironment{remarks}{enhanced, colbacktitle=Apricot!15!white, colback=Apricot!15!white, borderline west={1mm}{0pt}{Salmon!75!Black}, boxrule=0mm, frame hidden, fonttitle=\bfseries, coltitle=Salmon!75!Black, title={\Chalkboard Remarks}, left=1.5em, lefttitle=1.5em, toptitle=0.5mm, top=0.5mm, bottomtitle=0mm, before  skip=0.5em, after skip=0.5em, sharp corners, breakable}
+\newenvironment{numbered_remarks}{\begin{enumerate}}{\end{enumerate}}
+\tcolorboxenvironment{numbered_remarks}{enhanced, colbacktitle=Apricot!15!white, colback=Apricot!15!white, borderline west={1mm}{0pt}{Salmon!75!Black}, boxrule=0mm, frame hidden, fonttitle=\bfseries, coltitle=Salmon!75!Black, title={\Chalkboard Remarks}, left=1.5em, lefttitle=1.5em, toptitle=0.5mm, top=0.5mm, bottomtitle=0mm, before  skip=0.5em, after skip=0.5em, sharp corners, breakable}
 %---------------------------------------------------------------------------------------%
 % easy-annotate settings
 \newcommand{\node}[2]{\tikzmarknode{#1}{#2}}
@@ -149,6 +147,15 @@
     	\draw [color=\commandkey{color}](#1.\nodePos) ++ (\commandkey{node xshift},\commandkey{node yshift}) \arrow (textBox.\notationPos);
   	\end{tikzpicture}
 }
+%---------------------------------------------------------------------------------------%
+% title format settings
+\usepackage{titlesec}
+\titleformat{\section}[hang]{\Large\bf\Chalkboard}{\arabic{section}.}{1em}{}[]
+\titlespacing{\section}{0em}{1em}{1em}[0em] % parameters: {space left}{space above}{space below}[space remain on the right]
+\titleformat{\subsection}[hang]{\large\bf\Chalkboard}{\arabic{section}.\arabic{subsection}.}{1em}{}[]
+\titlespacing{\subsection}{0em}{0.5em}{0.5em}[0em]
+\titleformat{\subsubsection}[runin]{\normalsize\bf\Chalkboard}{\roman{subsubsection}.}{1em}{}[\hspace*{1em}]
+\titlespacing{\subsubsection}{0em}{0em}{0em}[0em]
 %---------------------------------------------------------------------------------------%
 % code blocks settings
 \usepackage{minted}
@@ -197,17 +204,20 @@
 }
 \AtEndEnvironment{document}{\immediate\write18{rm -r _minted*}}
 %---------------------------------------------------------------------------------------%
+% Environment for Theorems
+\newenvironment{theorems}{\titleformat{\subsection}[hang]{\large\bf\Chalkboard}{\color{blue}Theorem \arabic{subsection}}{1em}{}[]}{\titleformat{\subsection}[hang]{\large\bf\Chalkboard}{\arabic{section}.\arabic{subsection}.}{1em}{}[]}
+%---------------------------------------------------------------------------------------%
 % additional settings
 \linespread{1.2} % set line spread
 \setlength{\parindent}{1em}
-\setlist[itemize, 1]{label=$\bullet$, nosep, leftmargin=1em}
-\setlist[itemize, 2]{label=$\circ$, nosep, leftmargin=1.5em}
-\setlist[enumerate, 1]{nosep, leftmargin=1.5em}
-\setlist[enumerate, 2]{nosep, leftmargin=2em}
+\setlist[itemize, 1]{label=$\bullet$, nosep, leftmargin=1em, itemsep=0.5em}
+\setlist[itemize, 2]{label=$\circ$, nosep, leftmargin=1.5em, itemsep=0.5em}
+\setlist[enumerate, 1]{nosep, leftmargin=1.5em, itemsep=0.5em}
+\setlist[enumerate, 2]{nosep, leftmargin=2em, itemsep=0.5em}
 % itemsep: line space between the items in a list
 % topsep: top space before the first item in a list
-\setlength{\columnsep}{2em} % set width between columns
-\setlength{\columnseprule}{0.5pt} % set column rule width
+\setlength{\columnsep}{0em} % set width between columns
+\setlength{\columnseprule}{0pt} % set column rule width
 \setlength{\headheight}{3em} % set the space between the top and header
 \setlength{\headsep}{1em} % set the space between header and text area
 \setlength{\footskip}{2.5em} % set the space between text area and footer
