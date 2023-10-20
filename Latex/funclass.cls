@@ -7,7 +7,7 @@
 %----------------------------------------------------------------------------%
 % defination of class variables
 \newcommand{\@docOption}{}
-\newcommand{\@fontSize}{12pt}
+\newcommand{\@fontSize}{}
 \newcommand{\@pagecolor}{}
 \DeclareOption{note}{\renewcommand{\@docOption}{note}\renewcommand{\@fontSize}{10pt}}
 \DeclareOption{cheatsheet}{\renewcommand{\@docOption}{cheatsheet}\renewcommand{\@fontSize}{10pt}}
@@ -18,6 +18,7 @@
 \LoadClass[\@fontSize]{extarticle}
 %----------------------------------------------------------------------------%
 % load required packages
+\RequirePackage{etex}
 \RequirePackage[export]{adjustbox}
 \RequirePackage[no-math]{fontspec}
 \RequirePackage[svgnames, dvipsnames]{xcolor}
@@ -106,13 +107,82 @@
 \AtEndEnvironment{document}{\immediate\write18{rm -r _minted*}}
 %----------------------------------------------------------------------------%
 % settings for document general fonts
-\setmainfont{Helvetica Neue}
-\setmonofont{JetBrainsMono Nerd Font}
-\newfontfamily\JBNF{JetBrainsMono Nerd Font}[Scale=1.5]
-\newfontfamily\Chalkboard{Chalkboard SE}
+\newcommand{\@fontFolder}{direct}
+\newcommand{\indirectFontFolder}{\renewcommand{\@fontFolder}{indirect}}
+% \indirectFontFolder % uncomment this line if your 'fonts' folder contains sub-folders
+\IfFontExistsTF{Helvetica Neue}{
+    \setmainfont{Helvetica Neue}
+}{
+    \ifthenelse{\equal{\@fontFolder}{indirect}}{
+        \def\@fontPath{./fonts/Helvetica Neue/}
+    }{
+        \def\@fontPath{./fonts/}
+    }
+    \setmainfont{HelveticaNeue}[
+        Path=\@fontPath,
+        UprightFont=*,
+        BoldFont=*-Bold,
+        ItalicFont=*-Italic,
+        BoldItalicFont=*-BoldItalic
+    ]
+}
+\IfFontExistsTF{JetBrainsMono Nerd Font}{
+    \setmonofont{JetBrainsMono Nerd Font}
+    \newfontfamily\JBNF{JetBrainsMono Nerd Font}[Scale=1.5]
+}{
+    \ifthenelse{\equal{\@fontFolder}{indirect}}{
+        \def\@fontPath{./fonts/JetBrainsMono Nerd Font/}
+    }{
+        \def\@fontPath{./fonts/}
+    }
+    \setmonofont{JetBrainsMonoNerdFont}[
+        Path=\@fontPath,
+        UprightFont=*-Regular,
+        BoldFont=*-Bold,
+        ItalicFont=*-Italic,
+        BoldItalicFont=*-BoldItalic,
+    ]
+    \newfontfamily\JBNF{JetBrainsMonoNerdFont}[
+        Path=\@fontPath,
+        UprightFont=*-Regular,
+        BoldFont=*-Bold,
+        ItalicFont=*-Italic,
+        BoldItalicFont=*-BoldItalic,
+        Scale=1.5
+    ]
+}
+\IfFontExistsTF{Chalkboard SE}{
+    % No Italic style for Chalkboard SE
+    \newfontfamily\Chalkboard{Chalkboard SE}
+}{
+    \ifthenelse{\equal{\@fontFolder}{indirect}}{
+        \def\@fontPath{./fonts/Chalkboard/}
+    }{
+        \def\@fontPath{./fonts/}
+    }
+    \newfontfamily\Chalkboard{ChalkboardSE}[
+        Path=\@fontPath,
+        UprightFont=*-Regular,
+        BoldFont=*-Bold
+    ]
+}
 % settings for document math fonts
-\setmathfont{Cambria Math}
-\setmathfont[version=bold, FakeBold=7]{Cambria Math}
+\IfFontExistsTF{Cambria Math}{
+    \setmathfont{Cambria Math}
+    \setmathfont[version=bold, FakeBold=7]{Cambria Math}
+}{
+    \ifthenelse{\equal{\@fontFolder}{indirect}}{
+        \def\@fontPath{./fonts/Cambria/}
+    }{
+        \def\@fontPath{./fonts/}
+    }
+    \setmathfont{CambriaMath}[
+        Path=\@fontPath,
+    ]
+    \setmathfont[version=bold, FakeBold=7]{CambriaMath}[
+        Path=\@fontPath,
+    ]
+}
 % settings for document page size
 \ifthenelse{\equal{\@docOption}{assignment}}{ % A4 paper fill size: 210mm x 297mm
     \geometry{a4paper, total={180mm,267mm}, left=15mm, top=15mm} % special case for assignment
@@ -257,10 +327,10 @@
   	\end{tikzpicture}
 }
 % insert code blocks
-% usage: \code[python]{content} --- add an inline code block (default: Python)
-%        \readPython(*)[lineno]{path}[highlight] --- add a display Python code block from file
-%        \readTxt(*)[lineno]{path}[highlight] --- add a display txt code block from file
-\usemintedstyle{emacs}
+% usage: \code[python]{content} --- add an inline code block of specific language (default: Python)
+%        \readPython(*)[lineno]{path}[highlight][title] --- add a display Python code block from file
+%        \readTxt(*)[lineno]{path}[highlight][title] --- add a display txt code block from file
+\usemintedstyle{emacs} % set the style of rendered code block
 \setminted{mathescape, escapeinside=||, breaklines, breaksymbolleft=\small\ensuremath{\hookrightarrow}, breakindentnchars=0, breaksymbolsepnchars=1, python3}
 \tcbset{before skip=0.5\baselineskip+2pt, after skip=0.5\baselineskip+2pt}
 \definecolor{codeBG}{HTML}{f7f7f7}
@@ -296,11 +366,11 @@
         \tcbset{before skip=0.5\baselineskip+2pt, title={}}
     }
 }
-\NewDocumentCommand \readPython { s > {\SplitArgument{1}{-}} o m O{}}{
-    \processRead{#1}{#2}{#3}{#4}{python}{{\JBNF\symbol{"F0320}}\hspace{1em}\raisebox{0.25em}{Python}}
+\NewDocumentCommand \readPython { s > {\SplitArgument{1}{-}} o m O{} O{Python} }{
+    \processRead{#1}{#2}{#3}{#4}{python}{{\JBNF\symbol{"F0320}}\hspace{1em}\raisebox{0.25em}{#5}}
 }
-\NewDocumentCommand \readTxt { s > {\SplitArgument{1}{-}} o m O{} o }{
-    \processRead{#1}{#2}{#3}{#4}{text}{{\JBNF\symbol{"F489}}\hspace{1em}\raisebox{0.25em}{Console}}
+\NewDocumentCommand \readTxt { s > {\SplitArgument{1}{-}} o m O{} O{Console} }{
+    \processRead{#1}{#2}{#3}{#4}{text}{{\JBNF\symbol{"F489}}\hspace{1em}\raisebox{0.25em}{#5}}
 }
 %----------------------------------------------------------------------------%
 % defination of document specific functions
