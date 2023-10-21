@@ -38,6 +38,7 @@
 \RequirePackage{lipsum}
 \RequirePackage{minted}
 \RequirePackage{multicol}
+\RequirePackage{multirow}
 \RequirePackage{soul}
 \RequirePackage{tabularx}
 \RequirePackage{tikz}
@@ -335,8 +336,8 @@
 \tcbset{before skip=0.5\baselineskip+2pt, after skip=0.5\baselineskip+2pt}
 \definecolor{codeBG}{HTML}{f7f7f7}
 
-\NewTotalTCBox{\code}{ O{python} m }{enhanced, nobeforeafter, tcbox raise base, valign=center, left=1mm, right=1mm, top=0.2em, bottom=0.2em, height=1.4em, colback=codeBG, colframe=gray!50, boxrule=1pt}
-	{\mintinline{#1}{#2}}
+\NewTotalTCBox{\code}{ O{python} m }{enhanced, on line, left=1mm, right=1mm, top=0mm, bottom=0mm, colback=codeBG, colframe=gray!50, boxrule=1pt}
+    {\mintinline{#1}{#2}}
 
 \NewDocumentCommand \processRead { m m m m m m }{
     \IfBooleanT{#1}{
