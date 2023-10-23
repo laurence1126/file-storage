@@ -228,7 +228,7 @@
     \titlespacing{\section}{0em}{0.5em}{0.5em}[0em] % parameters: {space left}{space above}{space below}[space remain on the right]
     \titleformat{\subsection}[hang]{\large\bf\Chalkboard}{\arabic{section}.\arabic{subsection}.}{1em}{}[]
     \titlespacing{\subsection}{0em}{0.5em}{0.5em}[0em]
-    \titleformat{\subsubsection}[runin]{\normalsize\bf\Chalkboard}{\roman{subsubsection}.}{0em}{}[\hspace*{1em}]
+    \titleformat{\subsubsection}[runin]{\normalsize\bf\Chalkboard}{\roman{subsubsection}.}{0.5em}{}[\hspace*{1em}]
     \titlespacing{\subsubsection}{0em}{0em}{0em}[0em]
 }{}
 \ifthenelse{\equal{\@docOption}{cheatsheet}}{
@@ -236,7 +236,7 @@
     \titlespacing{\section}{0em}{0em}{0em}[0em]
     \titleformat{\subsection}[hang]{\normalsize\bf\Chalkboard}{\arabic{section}.\arabic{subsection}.}{1em}{}[]
     \titlespacing{\subsection}{0em}{0em}{0em}[0em]
-    \titleformat{\subsubsection}[runin]{\normalsize\bf\Chalkboard}{\roman{subsubsection}.}{0em}{}[\hspace*{1em}]
+    \titleformat{\subsubsection}[runin]{\normalsize\bf\Chalkboard}{\roman{subsubsection}.}{0.5em}{}[\hspace*{1em}]
     \titlespacing{\subsubsection}{0em}{0em}{0em}[0em]
 }{}
 \ifthenelse{\equal{\@docOption}{assignment}}{
@@ -252,7 +252,7 @@
     \titlespacing{\section}{0em}{0em}{0em}[0em]
     \titleformat{\subsection}[hang]{\normalsize\bf}{\arabic{section}.\arabic{subsection}.}{1em}{}[]
     \titlespacing{\subsection}{0em}{0em}{0em}[0em]
-    \titleformat{\subsubsection}[runin]{\normalsize\bf}{\roman{subsubsection}.}{0em}{}[\hspace*{1em}]
+    \titleformat{\subsubsection}[runin]{\normalsize\bf}{\roman{subsubsection}.}{0.5em}{}[\hspace*{1em}]
     \titlespacing{\subsubsection}{0em}{0em}{0em}[0em]
 }{}
 % Supplementary settings
