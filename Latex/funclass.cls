@@ -6,16 +6,17 @@
 
 %----------------------------------------------------------------------------%
 % defination of class variables
-\newcommand{\@docOption}{}
-\newcommand{\@fontSize}{}
+\newcommand{\@docOption}{basic}
+\newcommand{\@fontSize}{12pt}
 \newcommand{\@pagecolor}{}
 \DeclareOption{note}{\renewcommand{\@docOption}{note}\renewcommand{\@fontSize}{10pt}}
 \DeclareOption{cheatsheet}{\renewcommand{\@docOption}{cheatsheet}\renewcommand{\@fontSize}{10pt}}
 \DeclareOption{assignment}{\renewcommand{\@docOption}{assignment}\renewcommand{\@fontSize}{12pt}}
+\DeclareOption{basic}{\renewcommand{\@docOption}{basic}\renewcommand{\@fontSize}{12pt}}
 \DeclareOption{beige}{\renewcommand{\@pagecolor}{\pagecolor{Beige!30}}}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{extarticle}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
-\LoadClass[\@fontSize]{extarticle}
+\LoadClass[\@fontSize]{article}
 %----------------------------------------------------------------------------%
 % load required packages
 \RequirePackage{etex}
@@ -53,7 +54,7 @@
     \renewcommand{\maketitle}{
         \@pagecolor
         \begin{center}
-            {\huge\textbf{\Chalkboard\@title}\\}
+            {\LARGE\textbf{\Chalkboard\@title}}
         \end{center}
     }
     \renewcommand{\title}[1]{
@@ -65,12 +66,12 @@
         \newcommand{\hrefMath}[1]{\texorpdfstring{##1}{}}
         \tableofcontents
     }
-}{
+}{}
 \ifthenelse{\equal{\@docOption}{cheatsheet}}{
     \renewcommand{\maketitle}{
         \@pagecolor
         \begin{center}
-            {\Large\textbf{\Chalkboard\@title}\\}
+            {\Large\textbf{\Chalkboard\@title}}
         \end{center}
         \vspace{0.5em}
     }
@@ -79,7 +80,7 @@
         \maketitle
         \thispagestyle{fancy}
     }
-}{
+}{}
 \ifthenelse{\equal{\@docOption}{assignment}}{
     \newcommand{\@sid}{}
     \newcommand{\sid}[1]{\renewcommand{\@sid}{#1}}
@@ -96,7 +97,20 @@
         \maketitle
         \thispagestyle{fancy}
     }
-}{}}}
+}{}
+\ifthenelse{\equal{\@docOption}{basic}}{
+    \renewcommand\@maketitle{
+        \@pagecolor
+        \begin{center}
+            {\Large\textbf{\@title}}
+        \end{center}
+    }
+    \renewcommand{\title}[1]{
+        \renewcommand{\@title}{#1}
+        \maketitle
+        \thispagestyle{fancy}
+    }
+}{}
 %----------------------------------------------------------------------------%
 % settings for environment wrapper
 \BeforeBeginEnvironment{multicols}{\vspace{-1.5em}}
@@ -185,10 +199,13 @@
     ]
 }
 % settings for document page size
-\ifthenelse{\equal{\@docOption}{assignment}}{ % A4 paper fill size: 210mm x 297mm
-    \geometry{a4paper, total={180mm,267mm}, left=15mm, top=15mm} % special case for assignment
+% A4 paper fill size: 210mm x 297mm
+\ifthenelse{\equal{\@docOption}{note} \OR \equal{\@docOption}{cheatsheet}}{
+    % setting for 'note' and 'cheatsheet'
+    \geometry{a4paper, total={190mm,264mm}, left=10mm, top=15mm}
 }{
-    \geometry{a4paper, total={190mm,267mm}, left=10mm, top=15mm}
+    % setting for 'assignment' and 'basic'
+    \geometry{a4paper, total={180mm,267mm}, left=15mm, top=15mm}
 }
 % href links no special effect
 \hypersetup{hidelinks, colorlinks=true, urlcolor=black, linkcolor=black}
@@ -199,27 +216,29 @@
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 \ifthenelse{\equal{\@docOption}{note} \OR \equal{\@docOption}{cheatsheet}}{
+    % setting for 'note' and 'cheatsheet'
     \fancyhead[R]{\ifthenelse{\value{page}=1}{\color{gray}Last modified:\\\today}{}}
-}{
-    \rhead{} % no special right header for assignment
+}{  
+    % setting for 'assignment' and 'basic'
+    \rhead{}
 }
 % settings for title formats
 \ifthenelse{\equal{\@docOption}{note}}{
     \titleformat{\section}[hang]{\Large\bf\Chalkboard}{\arabic{section}.}{1em}{}[]
-    \titlespacing{\section}{0em}{1em}{1em}[0em] % parameters: {space left}{space above}{space below}[space remain on the right]
+    \titlespacing{\section}{0em}{0.5em}{0.5em}[0em] % parameters: {space left}{space above}{space below}[space remain on the right]
     \titleformat{\subsection}[hang]{\large\bf\Chalkboard}{\arabic{section}.\arabic{subsection}.}{1em}{}[]
     \titlespacing{\subsection}{0em}{0.5em}{0.5em}[0em]
-    \titleformat{\subsubsection}[runin]{\normalsize\bf\Chalkboard}{\roman{subsubsection}.}{1em}{}[\hspace*{1em}]
+    \titleformat{\subsubsection}[runin]{\normalsize\bf\Chalkboard}{\roman{subsubsection}.}{0em}{}[\hspace*{1em}]
     \titlespacing{\subsubsection}{0em}{0em}{0em}[0em]
-}{
+}{}
 \ifthenelse{\equal{\@docOption}{cheatsheet}}{
     \titleformat{\section}[hang]{\large\bf\Chalkboard}{\arabic{section}.}{1em}{}[]
     \titlespacing{\section}{0em}{0em}{0em}[0em]
     \titleformat{\subsection}[hang]{\normalsize\bf\Chalkboard}{\arabic{section}.\arabic{subsection}.}{1em}{}[]
     \titlespacing{\subsection}{0em}{0em}{0em}[0em]
-    \titleformat{\subsubsection}[runin]{\normalsize\bf\Chalkboard}{\roman{subsubsection}.}{1em}{}[\hspace*{1em}]
+    \titleformat{\subsubsection}[runin]{\normalsize\bf\Chalkboard}{\roman{subsubsection}.}{0em}{}[\hspace*{1em}]
     \titlespacing{\subsubsection}{0em}{0em}{0em}[0em]
-}{
+}{}
 \ifthenelse{\equal{\@docOption}{assignment}}{
     \titleformat{\section}[hang]{\large\bf}{\arabic{section}.}{1em}{}[]
     \titlespacing{\section}{0em}{0em}{0em}[0em]
@@ -227,7 +246,15 @@
     \titlespacing{\subsection}{0em}{0em}{0em}[0em]
     \titleformat{\subsubsection}[runin]{\normalsize}{}{0em}{}[\hspace*{1em}]
     \titlespacing{\subsubsection}{0em}{0em}{0em}[0em]
-}{}}}
+}{}
+\ifthenelse{\equal{\@docOption}{basic}}{
+    \titleformat{\section}[hang]{\large\bf}{\arabic{section}.}{1em}{}[]
+    \titlespacing{\section}{0em}{0em}{0em}[0em]
+    \titleformat{\subsection}[hang]{\normalsize\bf}{\arabic{section}.\arabic{subsection}.}{1em}{}[]
+    \titlespacing{\subsection}{0em}{0em}{0em}[0em]
+    \titleformat{\subsubsection}[runin]{\normalsize\bf}{\roman{subsubsection}.}{0em}{}[\hspace*{1em}]
+    \titlespacing{\subsubsection}{0em}{0em}{0em}[0em]
+}{}
 % Supplementary settings
 \linespread{1.2} % set line spread
 \setlength{\parindent}{1em}
@@ -236,10 +263,10 @@
 \setlist[enumerate, 1]{nosep, leftmargin=1.5em}
 \setlist[enumerate, 2]{nosep, leftmargin=2em}
 \ifthenelse{\equal{\@docOption}{note}}{
-    \setlist[itemize, 1]{itemsep=0.5em}
-    \setlist[itemize, 2]{itemsep=0.5em}
-    \setlist[enumerate, 1]{itemsep=0.5em}
-    \setlist[enumerate, 2]{itemsep=0.5em}
+    \setlist[itemize, 1]{label=$\bullet$, nosep, leftmargin=1em, itemsep=0.5em}
+    \setlist[itemize, 2]{label=$\circ$, nosep, leftmargin=1.5em, itemsep=0.5em}
+    \setlist[enumerate, 1]{nosep, leftmargin=1.5em, itemsep=0.5em}
+    \setlist[enumerate, 2]{nosep, leftmargin=2em, itemsep=0.5em}
     % itemsep: line space between the items in a list
     % topsep: top space before the first item in a list
     \setlength{\columnsep}{0em} % set width between page columns
@@ -247,19 +274,25 @@
     \setlength{\headheight}{3em} % set the space between ceiling and header
     \setlength{\headsep}{1em} % set the space between header and text area
     \setlength{\footskip}{2.5em} % set the space between text area and footer
-}{
+    \def\@codeInlineFontSize{\normalsize}
+    \def\@codeBlockFontSize{\normalsize}
+}{}
 \ifthenelse{\equal{\@docOption}{cheatsheet}}{
     \setlength{\columnsep}{2em} % set width between columns
     \setlength{\columnseprule}{0.5pt} % set column rule width
     \setlength{\headheight}{3em} % set the space between ceiling and header
     \setlength{\headsep}{1em} % set the space between header and text area
     \setlength{\footskip}{2.5em} % set the space between text area and footer
-}{
-\ifthenelse{\equal{\@docOption}{assignment}}{
+    \def\@codeInlineFontSize{\normalsize}
+    \def\@codeBlockFontSize{\normalsize}
+}{}
+\ifthenelse{\equal{\@docOption}{assignment} \OR \equal{\@docOption}{basic}}{
     \setlength{\columnsep}{0em} % set width between page columns
     \setlength{\columnseprule}{0pt} % set column rule width
-    \setlength{\footskip}{2em} % set the space between text area and footer
-}{}}}
+    \setlength{\footskip}{1.5em} % set the space between text area and footer
+    \def\@codeInlineFontSize{\footnotesize}
+    \def\@codeBlockFontSize{\footnotesize}
+}{}
 %----------------------------------------------------------------------------%
 
 %----------------------------------------------------------------------------%
@@ -332,16 +365,17 @@
 %        \readPython(*)[lineno]{path}[highlight][title] --- add a display Python code block from file
 %        \readTxt(*)[lineno]{path}[highlight][title] --- add a display txt code block from file
 \usemintedstyle{emacs} % set the style of rendered code block
-\setminted{mathescape, escapeinside=||, breaklines, breaksymbolleft=\small\ensuremath{\hookrightarrow}, breakindentnchars=0, breaksymbolsepnchars=1, python3}
+\setminted{mathescape, escapeinside=||, breaklines, breaksymbolleft=\small\ensuremath{\hookrightarrow},
+    fontsize=\@codeBlockFontSize, breakindentnchars=0, breaksymbolsepnchars=1, python3}
 \tcbset{before skip=0.5\baselineskip+2pt, after skip=0.5\baselineskip+2pt}
 \definecolor{codeBG}{HTML}{f7f7f7}
 
 \NewTotalTCBox{\code}{ O{python} m }{enhanced, on line, left=1mm, right=1mm, top=0mm, bottom=0mm, colback=codeBG, colframe=gray!50, boxrule=1pt}
-    {\mintinline{#1}{#2}}
+    {\mintinline[fontsize=\@codeInlineFontSize]{#1}{#2}}
 
 \NewDocumentCommand \processRead { m m m m m m }{
     \IfBooleanT{#1}{
-        \tcbset{before skip=-\tcboxedtitleheight/2, title=#6}
+        \tcbset{before skip=-\tcboxedtitleheight/2, title=\@codeBlockFontSize #6}
     }
     \IfNoValueTF{#2}{
         \def\first{1}
@@ -357,8 +391,8 @@
     \begin{tcolorbox}[
         enhanced, boxsep=0em, boxrule=1pt, colframe=gray!50, left=3mm, right=3mm, top=0.5em, bottom=0.5em,
         colback=codeBG, breakable, pad at break=0.5em, attach boxed title to top right={yshift=-0.4mm, xshift=-10mm},
-        boxed title style={skin=enhancedfirst jigsaw, valign=center, height=2.1em, colback=gray!25}, center title,
-        hbox boxed title, coltitle=gray
+        boxed title style={skin=enhancedfirst jigsaw, valign=center, top=0.1em, bottom=0.1em, colback=gray!25},
+        center title, hbox boxed title, coltitle=gray
     ]
     \inputminted[firstline=\first, lastline=\last, highlightlines={#4}]{#5}{#3}
     \end{tcolorbox}
