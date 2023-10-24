@@ -305,8 +305,8 @@
 %----------------------------------------------------------------------------%
 % defination of useful functions
 % highlight lines
-% usage: \hl{content} --- for normal text
-%        \highlight[color]{content} --- for display math
+% command:   \hl{<content>} --- highlight lines of normal text
+%            \highlight[<color>]{<content>} --- highlight lines of display math formulas
 \def\SOUL@hlpreamble{ % eliminate the white space between highlighted lines
     \setul{\dp\strutbox}{\dimexpr\ht\strutbox+\dp\strutbox\relax}{\hspace{-0.5em}}
     \let\SOUL@stcolor\SOUL@hlcolor
@@ -314,18 +314,18 @@
 }
 \colorlet{lightyellow}{yellow!33} % define highlight color
 \sethlcolor{lightyellow} % set highlight color
-\newcommand{\highlight}[2][yellow]{\colorbox{#1!33}{$\mathstrut #2$}}
+\newcommand{\highlight}[2][yellow!33]{\colorbox{#1}{$\mathstrut #2$}}
 % easy annotation
-% usage: \node{name}{content} --- define a node for drawing annotation
-%        \annotate[...]{node}{content} --- draw the annotation
-%           Optional args:
-%               xshift / yshift: move the position of content relative to node
-%               node xshift / node yshift: move the position of ending arrow
-%               arrow: |-(default), --, bend left, bend right
-%                      if arrow=bend left/right, parameter `deg` must be filled in
-%               deg: how much should the arrow bend (in 360 scale)
-%               color: color of the content and arrow
-%               anchor: arrow starting position relative to content (east, west, north, south)
+% command: \node{<name>}{<content>} --- define a node for drawing annotations
+%          \annotate[...]{<node>}{<content>} --- draw the annotation between node and content
+%              Optional args:
+%                  xshift / yshift: move the position of content relative to the node
+%                  node xshift / node yshift: move the position of ending arrow
+%                  arrow: |-(default)|--|bend left|bend right
+%                         if arrow=bend left/right, arg `deg` must be filled in
+%                  deg: how much deg should the arrow bend (in 360 scale)
+%                  color: color of the content and arrow
+%                  anchor: arrow starting position relative to the content (east|west|north|south)
 \newcommand{\node}[2]{\tikzmarknode{#1}{#2}}
 \newkeycommand{\annotate}[xshift=0em, yshift=0em, node xshift=0em, node yshift=0em, arrow=|-, deg, color=blue!67, anchor][2]{
   	\ifthenelse{\equal{\commandkey{anchor}}{}}{
@@ -368,10 +368,10 @@
   	\end{tikzpicture}
 }
 % insert code blocks
-% usage: \code[python]{content} --- add an inline code block of specific language (default: Python)
-% usage: \codeText[black]{content} --- add an inline code block of specific color (default: black, this macro can be used inside a table)
-%        \readPython(*)[lineno]{path}[highlight][title] --- add a display Python code block from file
-%        \readTxt(*)[lineno]{path}[highlight][title] --- add a display txt code block from file
+% command: \code[<lang>]{<content>} --- add an inline code cell of specific language (default: python)
+%          \codeText[<color>]{<content>} --- add an inline code cell of specific color (default: black, this macro can be used inside a table)
+%          \readPython(<*>)[<lineno>]{<path>}[<highlight>][<title>] --- add a display Python code block from file
+%          \readTxt(<*>)[<lineno>]{<path>}[<highlight>][<title>] --- add a display txt code block from file
 \usemintedstyle{emacs} % set the style of rendered code block
 \setminted{mathescape, escapeinside=||, breaklines, breaksymbolleft=\small\ensuremath{\hookrightarrow},
     fontsize=\@codeBlockFontSize, breakindentnchars=0, breaksymbolsepnchars=1, python3}
@@ -421,11 +421,11 @@
 % defination of document specific functions
 \ifthenelse{\equal{\@docOption}{note}}{
     % environment for Theorems (note)
-    % usage: \begin{theorems} ... \end{theorems}
+    % command: \begin{theorems} (...) \end{theorems}
     \newenvironment{theorems}{\titleformat{\subsection}[hang]{\large\bf\Chalkboard}{\color{blue}Theorem \arabic{subsection}}{1em}{}[]}
         {\titleformat{\subsection}[hang]{\large\bf\Chalkboard}{\arabic{section}.\arabic{subsection}.}{1em}{}[]}
     % define new tcolorbox environment
-    % usage: \begin{...} (\tcblower) \end{...}
+    % command: \begin{...} (\tcblower) \end{...}
     \newtcolorbox{MnV}{colback=SeaGreen!10!CornflowerBlue!10, colframe=RoyalPurple!50!Aquamarine!100!, fonttitle=\bfseries,
         sidebyside, halign=flush center, halign lower=flush center, title={\Chalkboard Mean and Variance}}
     \newtcolorbox{red}[1]{colback=red!5!white, colframe=red!75!black, fonttitle=\bfseries, title={\Chalkboard #1},
