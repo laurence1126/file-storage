@@ -15,15 +15,15 @@
 \DeclareOption{basic}{\renewcommand{\@docOption}{basic}\renewcommand{\@fontSize}{12pt}}
 \DeclareOption{beige}{\renewcommand{\@pagecolor}{\pagecolor{Beige!30}}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\PassOptionsToPackage{svgnames, dvipsnames}{xcolor}
 \ProcessOptions\relax
 \LoadClass[\@fontSize]{article}
 %----------------------------------------------------------------------------%
 % load required packages
 \RequirePackage{etex}
 \RequirePackage[export]{adjustbox}
+\RequirePackage[most]{tcolorbox}
 \RequirePackage[no-math]{fontspec}
-\RequirePackage[svgnames, dvipsnames]{xcolor}
-\RequirePackage[most]{tcolorbox} % needs to be placed after xcolor
 \RequirePackage{amsmath}
 \RequirePackage{array}
 \RequirePackage{booktabs}
