@@ -126,7 +126,7 @@
 \newcommand{\indirectFontFolder}{\renewcommand{\@fontFolder}{indirect}}
 % \indirectFontFolder % uncomment this line if your 'fonts' folder contains sub-folders
 \IfFontExistsTF{Helvetica Neue}{
-    \setmainfont{Helvetica Neue}
+    \setmainfont{Helvetica Neue}[Renderer=HarfBuzz]
 }{
     \ifthenelse{\equal{\@fontFolder}{indirect}}{
         \def\@fontPath{./fonts/Helvetica Neue/}
@@ -134,16 +134,18 @@
         \def\@fontPath{./fonts/}
     }
     \setmainfont{HelveticaNeue}[
+        Extension=.ttf,
         Path=\@fontPath,
         UprightFont=*,
         BoldFont=*-Bold,
         ItalicFont=*-Italic,
-        BoldItalicFont=*-BoldItalic
+        BoldItalicFont=*-BoldItalic,
+        Renderer=HarfBuzz
     ]
 }
 \IfFontExistsTF{JetBrainsMono Nerd Font}{
-    \setmonofont{JetBrainsMono Nerd Font}
-    \newfontfamily\JBNF{JetBrainsMono Nerd Font}[Scale=1.5]
+    \setmonofont{JetBrainsMono Nerd Font}[Renderer=HarfBuzz]
+    \newfontfamily\JBNF{JetBrainsMono Nerd Font}[Scale=1.5, Renderer=HarfBuzz]
 }{
     \ifthenelse{\equal{\@fontFolder}{indirect}}{
         \def\@fontPath{./fonts/JetBrainsMono Nerd Font/}
@@ -151,24 +153,28 @@
         \def\@fontPath{./fonts/}
     }
     \setmonofont{JetBrainsMonoNerdFont}[
+        Extension=.ttf,
         Path=\@fontPath,
         UprightFont=*-Regular,
         BoldFont=*-Bold,
         ItalicFont=*-Italic,
         BoldItalicFont=*-BoldItalic,
+        Renderer=HarfBuzz
     ]
     \newfontfamily\JBNF{JetBrainsMonoNerdFont}[
+        Extension=.ttf,
         Path=\@fontPath,
         UprightFont=*-Regular,
         BoldFont=*-Bold,
         ItalicFont=*-Italic,
         BoldItalicFont=*-BoldItalic,
-        Scale=1.5
+        Scale=1.5,
+        Renderer=HarfBuzz
     ]
 }
 \IfFontExistsTF{Chalkboard SE}{
     % No Italic style for Chalkboard SE
-    \newfontfamily\Chalkboard{Chalkboard SE}
+    \newfontfamily\Chalkboard{Chalkboard SE}[Renderer=HarfBuzz]
 }{
     \ifthenelse{\equal{\@fontFolder}{indirect}}{
         \def\@fontPath{./fonts/Chalkboard/}
@@ -176,15 +182,17 @@
         \def\@fontPath{./fonts/}
     }
     \newfontfamily\Chalkboard{ChalkboardSE}[
+        Extension=.ttf,
         Path=\@fontPath,
         UprightFont=*-Regular,
-        BoldFont=*-Bold
+        BoldFont=*-Bold,
+        Renderer=HarfBuzz
     ]
 }
 % settings for document math fonts
+\unimathsetup{math-style=ISO, bold-style=ISO}
 \IfFontExistsTF{Cambria Math}{
     \setmathfont{Cambria Math}
-    \setmathfont[version=bold, FakeBold=7]{Cambria Math}
 }{
     \ifthenelse{\equal{\@fontFolder}{indirect}}{
         \def\@fontPath{./fonts/Cambria/}
@@ -192,10 +200,8 @@
         \def\@fontPath{./fonts/}
     }
     \setmathfont{CambriaMath}[
-        Path=\@fontPath,
-    ]
-    \setmathfont[version=bold, FakeBold=7]{CambriaMath}[
-        Path=\@fontPath,
+        Extension=.ttf,
+        Path=\@fontPath
     ]
 }
 % settings for document page size

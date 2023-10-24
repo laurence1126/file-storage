@@ -29,23 +29,23 @@
 }
 
 \IfFontExistsTF{Font Awesome 6 Pro}{
-    \newfontfamily\FAThin{Font Awesome 6 Pro}[Scale=\@scaled, UprightFont=FontAwesome6Pro-Thin]
-    \newfontfamily\FALight{Font Awesome 6 Pro}[Scale=\@scaled, UprightFont=FontAwesome6Pro-Light]
-    \newfontfamily\FARegular{Font Awesome 6 Pro}[Scale=\@scaled, UprightFont=FontAwesome6Pro-Regular]
-    \newfontfamily\FASolid{Font Awesome 6 Pro}[Scale=\@scaled, UprightFont=FontAwesome6Pro-Solid]
-    \newfontfamily\FASharpLight{Font Awesome 6 Sharp}[Scale=\@scaled, UprightFont=FontAwesome6Sharp-Light]
-    \newfontfamily\FASharpRegular{Font Awesome 6 Sharp}[Scale=\@scaled, UprightFont=FontAwesome6Sharp-Regular]
-    \newfontfamily\FASharpSolid{Font Awesome 6 Sharp}[Scale=\@scaled, UprightFont=FontAwesome6Sharp-Solid]
-    \newfontfamily\FABrands{Font Awesome 6 Brands}[Scale=\@scaled]
+    \newfontfamily\FAThin{Font Awesome 6 Pro}[Scale=\@scaled, UprightFont=FontAwesome6Pro-Thin, Renderer=HarfBuzz]
+    \newfontfamily\FALight{Font Awesome 6 Pro}[Scale=\@scaled, UprightFont=FontAwesome6Pro-Light, Renderer=HarfBuzz]
+    \newfontfamily\FARegular{Font Awesome 6 Pro}[Scale=\@scaled, UprightFont=FontAwesome6Pro-Regular, Renderer=HarfBuzz]
+    \newfontfamily\FASolid{Font Awesome 6 Pro}[Scale=\@scaled, UprightFont=FontAwesome6Pro-Solid, Renderer=HarfBuzz]
+    \newfontfamily\FASharpLight{Font Awesome 6 Sharp}[Scale=\@scaled, UprightFont=FontAwesome6Sharp-Light, Renderer=HarfBuzz]
+    \newfontfamily\FASharpRegular{Font Awesome 6 Sharp}[Scale=\@scaled, UprightFont=FontAwesome6Sharp-Regular, Renderer=HarfBuzz]
+    \newfontfamily\FASharpSolid{Font Awesome 6 Sharp}[Scale=\@scaled, UprightFont=FontAwesome6Sharp-Solid, Renderer=HarfBuzz]
+    \newfontfamily\FABrands{Font Awesome 6 Brands}[Scale=\@scaled, Renderer=HarfBuzz]
 }{
-    \newfontfamily\FAThin{Font Awesome 6 Pro-Thin-100.otf}[Path=\@fontdir, Scale=\@scaled]
-    \newfontfamily\FALight{Font Awesome 6 Pro-Light-300.otf}[Path=\@fontdir, Scale=\@scaled]
-    \newfontfamily\FARegular{Font Awesome 6 Pro-Regular-400.otf}[Path=\@fontdir, Scale=\@scaled]
-    \newfontfamily\FASolid{Font Awesome 6 Pro-Solid-900.otf}[Path=\@fontdir, Scale=\@scaled]
-    \newfontfamily\FASharpLight{Font Awesome 6 Sharp-Light-300.otf}[Path=\@fontdir, Scale=\@scaled]
-    \newfontfamily\FASharpRegular{Font Awesome 6 Sharp-Regular-400.otf}[Path=\@fontdir, Scale=\@scaled]
-    \newfontfamily\FASharpSolid{Font Awesome 6 Sharp-Solid-900.otf}[Path=\@fontdir, Scale=\@scaled]
-    \newfontfamily\FABrands{Font Awesome 6 Brands-Regular-400.otf}[Path=\@fontdir, Scale=\@scaled]
+    \newfontfamily\FAThin{Font Awesome 6 Pro-Thin-100.otf}[Path=\@fontdir, Scale=\@scaled, Renderer=HarfBuzz]
+    \newfontfamily\FALight{Font Awesome 6 Pro-Light-300.otf}[Path=\@fontdir, Scale=\@scaled, Renderer=HarfBuzz]
+    \newfontfamily\FARegular{Font Awesome 6 Pro-Regular-400.otf}[Path=\@fontdir, Scale=\@scaled, Renderer=HarfBuzz]
+    \newfontfamily\FASolid{Font Awesome 6 Pro-Solid-900.otf}[Path=\@fontdir, Scale=\@scaled, Renderer=HarfBuzz]
+    \newfontfamily\FASharpLight{Font Awesome 6 Sharp-Light-300.otf}[Path=\@fontdir, Scale=\@scaled, Renderer=HarfBuzz]
+    \newfontfamily\FASharpRegular{Font Awesome 6 Sharp-Regular-400.otf}[Path=\@fontdir, Scale=\@scaled, Renderer=HarfBuzz]
+    \newfontfamily\FASharpSolid{Font Awesome 6 Sharp-Solid-900.otf}[Path=\@fontdir, Scale=\@scaled, Renderer=HarfBuzz]
+    \newfontfamily\FABrands{Font Awesome 6 Brands-Regular-400.otf}[Path=\@fontdir, Scale=\@scaled, Renderer=HarfBuzz]
 }
 
 \NewDocumentCommand \faIcon { s O{regular} m }{
