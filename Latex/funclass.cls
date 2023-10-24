@@ -257,6 +257,7 @@
 }{}
 % Supplementary settings
 \linespread{1.2} % set line spread
+\renewcommand\tabularxcolumn[1]{m{#1}} % vertical centering text in X column
 \setlength{\parindent}{1em}
 \setlist[itemize, 1]{label=$\bullet$, nosep, leftmargin=1em}
 \setlist[itemize, 2]{label=$\circ$, nosep, leftmargin=1.5em}
@@ -362,6 +363,7 @@
 }
 % insert code blocks
 % usage: \code[python]{content} --- add an inline code block of specific language (default: Python)
+% usage: \codeText[black]{content} --- add an inline code block of specific color (default: black, this macro can be used inside a table)
 %        \readPython(*)[lineno]{path}[highlight][title] --- add a display Python code block from file
 %        \readTxt(*)[lineno]{path}[highlight][title] --- add a display txt code block from file
 \usemintedstyle{emacs} % set the style of rendered code block
@@ -372,6 +374,8 @@
 
 \NewTotalTCBox{\code}{ O{python} m }{enhanced, on line, left=1mm, right=1mm, top=0mm, bottom=0mm, colback=codeBG, colframe=gray!50, boxrule=1pt}
     {\mintinline[fontsize=\@codeInlineFontSize]{#1}{#2}}
+\NewTotalTCBox{\codeText}{ O{black} m }{enhanced, on line, left=1mm, right=1mm, top=0mm, bottom=0mm, colback=codeBG, colframe=gray!50, boxrule=1pt}
+    {\color{#1}\@codeInlineFontSize\texttt{#2}}
 
 \NewDocumentCommand \processRead { m m m m m m }{
     \IfBooleanT{#1}{
