@@ -45,8 +45,10 @@
 \RequirePackage{tikz}
 \usetikzlibrary{tikzmark}
 \RequirePackage{titlesec}
+\RequirePackage{tocloft}
 \RequirePackage{unicode-math}
 \RequirePackage{wrapfig}
+\RequirePackage{xltabular}
 \RequirePackage{xparse}
 %----------------------------------------------------------------------------%
 % redefine maketitle
@@ -60,11 +62,11 @@
     \renewcommand{\title}[1]{
         \renewcommand{\@title}{#1}
         \maketitle
-        \thispagestyle{fancy}
         % Table of contents settings
-        \renewcommand{\contentsname}{Summary\vspace{-1em}}
+        \renewcommand{\contentsname}{\Chalkboard Summary\vspace{-1em}}
         \newcommand{\hrefMath}[1]{\texorpdfstring{##1}{}}
         \tableofcontents
+        \thispagestyle{fancy}
     }
 }{}
 \ifthenelse{\equal{\@docOption}{cheatsheet}}{
@@ -115,8 +117,9 @@
 % settings for environment wrapper
 \BeforeBeginEnvironment{multicols}{\vspace{-1.5em}}
 \AtBeginEnvironment{multicols}{\raggedcolumns}
-\AtBeginEnvironment{table}{\setlength{\aboverulesep}{0em}\setlength{\belowrulesep}{0em}\def\arraystretch{1.2}\vspace{-1em}}
-\AtEndEnvironment{table}{\vspace{-1em}}
+\AtBeginEnvironment{tabular}{\setlength{\aboverulesep}{0em}\setlength{\belowrulesep}{0em}\def\arraystretch{1.2}}
+\AtBeginEnvironment{tabularx}{\setlength{\aboverulesep}{0em}\setlength{\belowrulesep}{0em}\def\arraystretch{1.2}}
+\AtBeginEnvironment{xltabular}{\setlength{\aboverulesep}{0em}\setlength{\belowrulesep}{0em}\def\arraystretch{1.2}}
 \BeforeBeginEnvironment{figure}{\vspace{-0.5em}}
 \AfterEndEnvironment{figure}{\vspace*{-1em}}
 \AtEndEnvironment{document}{\immediate\write18{rm -r _minted*}}
@@ -263,6 +266,8 @@
 }{}
 % Supplementary settings
 \linespread{1.2} % set line spread
+\setlength{\cftbeforesecskip}{0em} % Adjust spacing between sections in TOC
+\setlength{\cftaftertoctitleskip}{2em} % Adjust space after TOC title
 \renewcommand\tabularxcolumn[1]{m{#1}} % vertical centering text in X column
 \setlength{\parindent}{1em}
 \setlist[itemize, 1]{label=$\bullet$, nosep, leftmargin=1em}
@@ -320,7 +325,7 @@
 %          \annotate[...]{<node>}{<content>} --- draw the annotation between node and content
 %              Optional args:
 %                  xshift / yshift: move the position of content relative to the node
-%                  node xshift / node yshift: move the position of ending arrow
+%                  node xshift / node yshift: move the position of ending arrow relative to the node
 %                  arrow: |-(default)|--|bend left|bend right
 %                         if arrow=bend left/right, arg `deg` must be filled in
 %                  deg: how much deg should the arrow bend (in 360 scale)
