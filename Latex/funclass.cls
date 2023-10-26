@@ -125,17 +125,11 @@
 \AtEndEnvironment{document}{\immediate\write18{rm -r _minted*}}
 %----------------------------------------------------------------------------%
 % settings for document general fonts
-\newcommand{\@fontFolder}{direct}
-\newcommand{\indirectFontFolder}{\renewcommand{\@fontFolder}{indirect}}
-% \indirectFontFolder % uncomment this line if your 'fonts' folder contains sub-folders
+% set the default folder to search for fonts
+\def\@fontPath{./fonts/}
 \IfFontExistsTF{Helvetica Neue}{
     \setmainfont{Helvetica Neue}[Renderer=HarfBuzz]
 }{
-    \ifthenelse{\equal{\@fontFolder}{indirect}}{
-        \def\@fontPath{./fonts/Helvetica Neue/}
-    }{
-        \def\@fontPath{./fonts/}
-    }
     \setmainfont{HelveticaNeue}[
         Extension=.ttf,
         Path=\@fontPath,
@@ -150,11 +144,6 @@
     \setmonofont{JetBrainsMono Nerd Font}[Renderer=HarfBuzz]
     \newfontfamily\JBNF{JetBrainsMono Nerd Font}[Scale=1.5, Renderer=HarfBuzz]
 }{
-    \ifthenelse{\equal{\@fontFolder}{indirect}}{
-        \def\@fontPath{./fonts/JetBrainsMono Nerd Font/}
-    }{
-        \def\@fontPath{./fonts/}
-    }
     \setmonofont{JetBrainsMonoNerdFont}[
         Extension=.ttf,
         Path=\@fontPath,
@@ -175,15 +164,9 @@
         Renderer=HarfBuzz
     ]
 }
-\IfFontExistsTF{Chalkboard SE}{
-    % No Italic style for Chalkboard SE
+\IfFontExistsTF{Chalkboard SE}{ % No Italic style for Chalkboard SE
     \newfontfamily\Chalkboard{Chalkboard SE}[Renderer=HarfBuzz]
 }{
-    \ifthenelse{\equal{\@fontFolder}{indirect}}{
-        \def\@fontPath{./fonts/Chalkboard/}
-    }{
-        \def\@fontPath{./fonts/}
-    }
     \newfontfamily\Chalkboard{ChalkboardSE}[
         Extension=.ttf,
         Path=\@fontPath,
@@ -197,11 +180,6 @@
 \IfFontExistsTF{Cambria Math}{
     \setmathfont{Cambria Math}
 }{
-    \ifthenelse{\equal{\@fontFolder}{indirect}}{
-        \def\@fontPath{./fonts/Cambria/}
-    }{
-        \def\@fontPath{./fonts/}
-    }
     \setmathfont{CambriaMath}[
         Extension=.ttf,
         Path=\@fontPath

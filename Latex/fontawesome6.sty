@@ -16,17 +16,8 @@
 \newcommand*{\@scaled}{1}
 \DeclareOption{scaled}{\renewcommand{\@scaled}{1.5}}
 \ProcessOptions\relax
-
-% Configure a directory location for fonts if not installed (default: './fonts/')
-\newcommand*{\fontdir}[1][./fonts/]{\def\@fontdir{#1}}
-\newcommand*{\@fontFolderFA}{direct}
-\newcommand*{\indirectFontFolderFA}{\renewcommand{\@fontFolderFA}{indirect}}
-% \indirectFontFolderFA % uncomment this line if your 'fonts' folder contains sub-folders
-\ifthenelse{\equal{\@fontFolderFA}{indirect}}{
-    \fontdir[./fonts/Font Awesome 6/]
-}{
-    \fontdir
-}
+% Configure a directory location for fonts if not installed
+\def\@fontdir{./fonts/}
 
 \IfFontExistsTF{Font Awesome 6 Pro}{
     \newfontfamily\FAThin{Font Awesome 6 Pro}[Scale=\@scaled, UprightFont=FontAwesome6Pro-Thin, Renderer=HarfBuzz]
