@@ -229,9 +229,9 @@
 \ifthenelse{\equal{\@docOption}{assignment}}{
     \titleformat{\section}[hang]{\large\bf}{\arabic{section}.}{1em}{}[]
     \titlespacing{\section}{0em}{0em}{0em}[0em]
-    \titleformat{\subsection}[runin]{\normalsize\bf}{}{0em}{}[\hspace*{1em}]
+    \titleformat{\subsection}[hang]{\normalsize\bf}{\arabic{section}.\arabic{subsection}.}{1em}{}[]
     \titlespacing{\subsection}{0em}{0em}{0em}[0em]
-    \titleformat{\subsubsection}[runin]{\normalsize}{}{0em}{}[\hspace*{1em}]
+    \titleformat{\subsubsection}[runin]{\normalsize\bf}{\roman{subsubsection}.}{0.5em}{}[\hspace*{1em}]
     \titlespacing{\subsubsection}{0em}{0em}{0em}[0em]
 }{}
 \ifthenelse{\equal{\@docOption}{basic}}{
