@@ -183,7 +183,7 @@ sudo apt install xcaddy
 
 ### 3. Default Config Location:
 
-```shell
+```
 /etc/caddy/Caddyfile
 ```
 
