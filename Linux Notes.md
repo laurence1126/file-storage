@@ -214,8 +214,8 @@ sudo htpasswd -c /etc/squid/passwords [USERNAME]
 ### 4. Config Squid Proxy
 
 ```shell
-sudo mv /etc/squid/squid.conf /etc/squid/squid.conf.old
-sudo vi /etc/squid/squid.conf
+sudo mv /etc/squid/squid.conf /etc/squid/squid.conf.bak
+sudo vim /etc/squid/squid.conf
 ```
 
 Search for `http_access deny all`, replace it with `http_access allow all`.\
