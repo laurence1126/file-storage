@@ -349,6 +349,8 @@ sudo apt install fonts-noto-cjk-extra
 
 ### 2. 字母方块乱码解决方法
 
-在 Jellyfin 的挂载目录 `/config` 中，新建一个文件夹 `/fonts`。\
-下载[中文](https://fonts.google.com/noto/specimen/Noto+Sans+SC)和[日文](https://fonts.google.com/noto/specimen/Noto+Sans+JP)字体，将其复制到 `/fonts` 文件夹里。\
+在 Jellyfin 的挂载目录 `/config` 中，新建一个文件夹 `/fonts`。
+
+下载[中文](https://fonts.google.com/noto/specimen/Noto+Sans+SC)和[日文](https://fonts.google.com/noto/specimen/Noto+Sans+JP)字体，将其复制到 `/fonts` 文件夹里。
+
 最后在 `控制台-播放` 中设置 **_备用字体文件路径_** 并 **_启用备用字体_** 。
