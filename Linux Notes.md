@@ -336,7 +336,7 @@ sudo smbpasswd -a username
 
 ## Jellyfin Media Server (Docker)
 
-### 封面方块乱码解决方法
+### 1. 封面方块乱码解决方法
 
 在 Docker 中打开 bash ，并执行以下代码：
 
@@ -347,7 +347,7 @@ sudo apt install fonts-noto-cjk-extra
 
 重启 Jellyfin container ，删除原封面图片并重新扫描所有媒体库
 
-### 字母方块乱码解决方法
+### 2. 字母方块乱码解决方法
 
 在 Jellyfin 的挂载目录 `/config` 中，新建一个文件夹 `/fonts`。\
 下载[中文](https://fonts.google.com/noto/specimen/Noto+Sans+SC)和[日文](https://fonts.google.com/noto/specimen/Noto+Sans+JP)字体，将其复制到 `/fonts` 文件夹里。\
