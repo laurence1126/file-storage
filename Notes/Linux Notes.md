@@ -334,6 +334,18 @@ Since Samba doesn’t use the system account password, we need to set up a Samba
 sudo smbpasswd -a username
 ```
 
+## IDrive Cloud Backup
+
+### 1. Data Protection for Linux machines using Scripts
+
+Script (bin) location:
+
+```
+/opt/IDriveForLinux/bin/
+```
+
+For detailed instruction manual, please visit [here](https://www.idrive.com/readme).
+
 ## Jellyfin Media Server (Docker)
 
 ### 1. 封面方块乱码解决方法
