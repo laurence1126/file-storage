@@ -1,5 +1,5 @@
-<h1 align="center">
-<dev style="display: flex; align-items: center; justify-content: center"><img src="img/ubuntu.svg" height="48" width="64"></img>Linux Notes</dev>
+<h1 align="middle">
+<img src="img/ubuntu.svg" style="vertical-align:middle" height="48" width="64"></img>Linux Notes
 </h1>
 
 ## Ubuntu System
