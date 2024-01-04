@@ -59,6 +59,7 @@ Change below lines to look like this:
 |        **Name**         | **Protocol** |                            **IP Address**                            | **Remote Port** |              **Local Port**               |
 | :---------------------: | :----------: | :------------------------------------------------------------------: | :-------------: | :---------------------------------------: |
 |  Remote Desktop (RDP)   |     TCP      |                          hk.ubuntu-svr.com                           |      3390       |                   3389                    |
+|          SAMBA          |     TCP      |                          hk.ubuntu-svr.com                           |      4450       |                    445                    |
 |       Remote SSH        |     TCP      |                          hk.ubuntu-svr.com                           |       23        |                    22                     |
 | Remote SSH (MacBookPro) |     TCP      |                          hk.ubuntu-svr.com                           |       24        |                    22                     |
 |          Alist          |     HTTP     |     [alist-nuc.ubuntu-svr.com](https://alist-nuc.ubuntu-svr.com)     |       N/A       |   [5244](https://alist.ubuntu-nuc.com/)   |
@@ -262,6 +263,10 @@ stream {
     server {
         listen 24;
         proxy_pass macbookpro:22;
+    }
+    server {
+        listen 4450;
+        proxy_pass ubuntu-nuc:445;
     }
 }
 ```
