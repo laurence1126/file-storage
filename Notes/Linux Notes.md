@@ -1,5 +1,6 @@
 <h1 align="middle">
-<img src="img/ubuntu.svg" style="vertical-align:middle" height="48" width="64"></img>Linux Notes
+    <img src="img/ubuntu.svg" align="center" height="48" width="64"></img>
+    <span>Linux Notes</span>
 </h1>
 
 ## Ubuntu System
