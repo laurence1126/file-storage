@@ -319,6 +319,8 @@ At the bottom of the file, add the following lines:
 [Shared Folder]
    comment = Comments on the shared folder
    path = /path/to/shared/folder
+   hide files = /.*/
+   veto files = /lost+found/
    browseable = yes
    writable = yes
    guest ok = yes
