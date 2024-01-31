@@ -57,7 +57,21 @@ Change below lines to look like this:
 %sudo   ALL=(ALL:ALL) NOPASSWD:ALL
 ```
 
-### 4. Local Services On Ubuntu NUC
+### 4. SSH Login Without Password
+
+Start by generating a key pair (in local machine):
+
+```shell
+ssh-keygen -t rsa
+```
+
+Upload the public key to the destination system:
+
+```shell
+ssh-copy-id username@remote-server
+```
+
+### 5. Local Services On Ubuntu NUC
 
 |        **Name**         | **Protocol** |                            **IP Address**                            | **Remote Port** |              **Local Port**               |
 | :---------------------: | :----------: | :------------------------------------------------------------------: | :-------------: | :---------------------------------------: |
