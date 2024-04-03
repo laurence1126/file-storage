@@ -65,7 +65,7 @@
 \usepackage{fancyhdr}
 \fancyfootoffset{0pt}
 \pagestyle{fancy}
-\fancyhead[R]{\ifthenelse{\value{page}=1}{\color{gray}Last modified:\\\today}{}}\lhead{}
+\fancyhead[R]{\ifthenelse{\value{page}=1}{\color{gray}\@author\\\today}{}}\lhead{}
 \cfoot{-~\thepage~-}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}

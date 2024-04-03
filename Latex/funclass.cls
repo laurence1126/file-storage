@@ -204,7 +204,7 @@
 \renewcommand{\footrulewidth}{0pt}
 \ifthenelse{\equal{\@docOption}{note} \OR \equal{\@docOption}{cheatsheet}}{
     % setting for 'note' and 'cheatsheet'
-    \fancyhead[R]{\ifthenelse{\value{page}=1}{\color{gray}Last modified:\\\today}{}}
+    \fancyhead[R]{\ifthenelse{\value{page}=1}{\color{gray}\@author\\\today}{}}
 }{  
     % setting for 'assignment' and 'basic'
     \rhead{}

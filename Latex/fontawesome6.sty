@@ -42,9 +42,9 @@
 \NewDocumentCommand \faIcon { s O{regular} m }{
     \IfBooleanTF{#1}{\def\@style{sharp}}{\def\@style{classic}}
 	\ifthenelse{\equal{\@scaled}{1.5}}{
-		\hspace{-0.25em}\raisebox{-0.25em}{\csname faIcon-\@style-#2@#3 \endcsname}\hspace{-0.25em}
+		\hspace{-1em}\parbox{1.5em}{\csname faIcon-\@style-#2@#3 \endcsname}\hspace{-1em}
 	}{
-		\hspace{-0.5em}{\csname faIcon-\@style-#2@#3 \endcsname}\hspace{-0.5em}
+		\hspace{-1em}\parbox{1em}{\csname faIcon-\@style-#2@#3 \endcsname}\hspace{-1em}
 	}
 }
 
