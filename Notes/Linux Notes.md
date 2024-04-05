@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="img/ubuntu.svg" align="center" height="48" width="64"></img>
+    <img src="img/ubuntu.svg" align="center" height="48" width="64">
     <span>Linux Notes</span>
 </h1>
 

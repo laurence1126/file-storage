@@ -101,8 +101,13 @@
     }
 }{}
 \ifthenelse{\equal{\@docOption}{basic}}{
+    \newcommand{\@spaceUpfront}{}
+    \newcommand{\spaceUpfront}[1]{\renewcommand{\@spaceUpfront}{#1}}
     \renewcommand\@maketitle{
         \@pagecolor
+        \ifthenelse{\NOT\equal{\@spaceUpfront}{}}{
+            \vspace*{\@spaceUpfront}
+        }{}
         \begin{center}
             {\Large\textbf{\@title}}
         \end{center}
