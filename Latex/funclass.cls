@@ -7,13 +7,16 @@
 %----------------------------------------------------------------------------%
 % defination of class variables
 \newcommand{\@docOption}{basic}
-\newcommand{\@fontSize}{12pt}
+\newcommand{\@fontSize}{10pt}
 \newcommand{\@pagecolor}{}
 \DeclareOption{note}{\renewcommand{\@docOption}{note}\renewcommand{\@fontSize}{10pt}}
 \DeclareOption{cheatsheet}{\renewcommand{\@docOption}{cheatsheet}\renewcommand{\@fontSize}{10pt}}
 \DeclareOption{assignment}{\renewcommand{\@docOption}{assignment}\renewcommand{\@fontSize}{12pt}}
 \DeclareOption{basic}{\renewcommand{\@docOption}{basic}\renewcommand{\@fontSize}{12pt}}
 \DeclareOption{beige}{\renewcommand{\@pagecolor}{\pagecolor{Beige!30}}}
+\DeclareOption{10pt}{\renewcommand{\@fontSize}{10pt}}
+\DeclareOption{11pt}{\renewcommand{\@fontSize}{11pt}}
+\DeclareOption{12pt}{\renewcommand{\@fontSize}{12pt}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \PassOptionsToPackage{svgnames, dvipsnames}{xcolor}
 \ProcessOptions\relax
