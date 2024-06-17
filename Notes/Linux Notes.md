@@ -253,7 +253,15 @@ Restart the squid service: `sudo service squid restart`.
 
 ## Forward TCP / UDP Port With Nginx
 
-### 1. Basic Config Template
+### 1. Install Stream Module to Proxy TCP, UDP
+
+Install with the following command:
+
+```shell
+sudo apt -y install libnginx-mod-stream
+```
+
+### 2. Basic Config Template
 
 Default config location: `/etc/nginx/nginx.conf`
 
