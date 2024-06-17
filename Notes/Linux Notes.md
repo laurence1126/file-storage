@@ -189,7 +189,7 @@ sudo tailscale up --advertise-exit-node --advertise-connector --advertise-tags=t
 Disable it by running:
 
 ```shell
-sudo tailscale up --advertise-exit-node=false --advertise-connector=false --advertise-tags= --advertise-routes=
+sudo tailscale up --accept-routes=true --advertise-exit-node=false --advertise-connector=false --advertise-tags= --advertise-routes=
 ```
 
 ## Caddy
