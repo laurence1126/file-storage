@@ -183,13 +183,13 @@ sudo sysctl -p /etc/sysctl.conf
 Then enable both of them by running:
 
 ```shell
-sudo tailscale up --advertise-exit-node --advertise-connector --advertise-tags=tag:connector --advertise-routes=
+sudo tailscale up --accept-routes=true --advertise-exit-node --advertise-connector --advertise-tags=tag:connector --advertise-routes=
 ```
 
 Disable it by running:
 
 ```shell
-sudo tailscale up --accept-routes=true --advertise-exit-node=false --advertise-connector=false --advertise-tags= --advertise-routes=
+sudo tailscale up --accept-routes=true --advertise-exit-node=false --advertise-connector=false --advertise-tags= --advertise-routes= --reset
 ```
 
 ## Caddy
