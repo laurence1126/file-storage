@@ -168,13 +168,28 @@ volumes:
 
 Read more about this [here](https://forum.tailscale.com/t/auto-caddy-certificates-with-docker/3816/5).
 
-### 4. Exit Nodes (Route All Traffic)
+### 4. Exit Nodes & App Connectors
 
-Refer to the document [here](https://tailscale.com/kb/1103/exit-nodes).\
+Refer to the documents for [Exit Nodes](https://tailscale.com/kb/1103/exit-nodes) and [App Connectors](https://tailscale.com/kb/1281/app-connectors).
+
+For simplicity, first enable IP forwarding:
+
+```shell
+echo 'net.ipv4.ip_forward = 1' | sudo tee -a /etc/sysctl.conf
+echo 'net.ipv6.conf.all.forwarding = 1' | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p /etc/sysctl.conf
+```
+
+Then enable both of them by running:
+
+```shell
+sudo tailscale up --advertise-exit-node --advertise-connector --advertise-tags=tag:connector --advertise-routes=
+```
+
 Disable it by running:
 
 ```shell
-sudo tailscale up --advertise-exit-node=false
+sudo tailscale up --advertise-exit-node=false --advertise-connector=false --advertise-tags= --advertise-routes=
 ```
 
 ## Caddy
